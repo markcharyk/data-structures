@@ -4,7 +4,7 @@ import linked_list
 
 class InitTest(unittest.TestCase):
     def testEqual(self):
-        self.failUnlessEqual(linked_list.Linked_List.Node(10).val, 10)
+        self.failUnlessEqual(linked_list.Node(10).val, 10)
         linked = linked_list.Linked_List()
         self.failUnlessEqual(linked.head, None)
 
@@ -14,6 +14,9 @@ class InsertTest(unittest.TestCase):
         linked = linked_list.Linked_List()
         linked.insert(10)
         self.failUnlessEqual(linked.head.val, 10)
+        linked.insert(11)
+        self.failUnlessEqual(linked.head.val, 11)
+
 
 class PopTest(unittest.TestCase):
     def testEqual(self):

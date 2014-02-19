@@ -38,16 +38,13 @@ class Linked_List(object):
         if not self.head:
             return None
         ptr = self.head
-        trail = self.head
-        if self.head.val == val:
+        if ptr.val == val:
             self.head = self.head.next
-        while ptr:
-            if ptr.val == val:
-                trail.next = ptr.next
+            return None
+        while ptr.next:
+            if ptr.next.val == val:
+                ptr.next = ptr.next.next
                 return None
-            trail = ptr
-            ptr = ptr.next
-        return None
 
     def __str__(self):
         if not self.head:
@@ -68,14 +65,3 @@ class Node(object):
 
     def __str__(self):
         return str(self.val)
-
-
-if __name__ == '__main__':
-    my_ll = Linked_List()
-    print my_ll
-    my_ll.insert(15)
-    my_ll.insert(16)
-    my_ll.insert(15)
-    print my_ll
-    my_ll.remove(15)
-    print my_ll
