@@ -5,22 +5,11 @@ class Linked_List(object):
         if len(args) == 0:
             return None
         elif len(args) > 0:
-            self.head = args[0]
-            return None
-        for n in xrange(len(args[:-1])):
-            args[n].next = args[n+1]
-
-    class Node(object):
-
-        def __init__(self, val):
-            self.val = val
-            self.next = None
-
-        def __str__(self):
-            return str(self.val)
+            for n in xrange(len(args)):
+                self.insert(args[n])
 
     def insert(self, val):
-        new = self.Node(val)
+        new = Node(val)
         new.next = self.head
         self.head = new
 
@@ -69,6 +58,16 @@ class Linked_List(object):
             accu += str(ptr.next) + ", "
             ptr = ptr.next
         return accu[:-2] + ")"
+
+
+class Node(object):
+
+    def __init__(self, val):
+        self.val = val
+        self.next = None
+
+    def __str__(self):
+        return str(self.val)
 
 
 if __name__ == '__main__':
