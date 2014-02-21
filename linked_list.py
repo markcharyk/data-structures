@@ -14,6 +14,8 @@ class Linked_List(object):
         self.head = new
 
     def pop(self):
+        if not self.head:
+            return None
         result = self.head
         self.head = self.head.next
         return result
