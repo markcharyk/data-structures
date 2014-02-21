@@ -4,5 +4,4 @@ python:
 # command to install dependencies
 install: "pip install -r requirements.txt"
 # command to run tests
-before_script: python linked_list_tests.py
-after_script: python stack_tests.py
+script: python linked_list_tests.py; python stack_tests.py
