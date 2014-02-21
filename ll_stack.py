@@ -2,9 +2,7 @@ class LLStack(object):
 
     def __init__(self, *args):
         self.head = None
-        if len(args) == 0:
-            return None
-        elif len(args) > 0:
+        if len(args) > 0:
             for n in xrange(len(args)):
                 self.push(args[n])
 
