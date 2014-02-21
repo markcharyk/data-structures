@@ -13,8 +13,8 @@ class LLStack(object):
         return "The head is %s, who knows what else is underneath it?" % h
 
     def push(self, val):
-        new, self.head = self.head, Node(val)
-        self.head = new
+        old_head, self.head = self.head, Node(val)
+        self.head.next = old_head
 
     def pop(self):
         if not self.head:
