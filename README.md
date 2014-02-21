@@ -9,3 +9,6 @@ A Linked List with the following functions:
 A stack with the following functions:
     push(val): Add a node with the value = val to the top of the stack
     pop(): Remove the item at the top of the stack and return it
+
+
+[![Build Status](https://travis-ci.org/markcharyk/data-structures.png?branch=master)](https://travis-ci.org/markcharyk/data-structures)
