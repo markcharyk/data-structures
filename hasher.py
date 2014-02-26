@@ -25,9 +25,7 @@ class HashTable(Linked_List):
             hash_val = self.hash(key)
         except TypeError:
             raise ValueError("OK but try with a string this time")
-        current = self.head
-        while current and current.val.id != hash_val:
-            current = current.next
+        current = self.find_bucket(hash_val)
         if current.val.search((key, val)):
             return
         current.val.insert((key, val))
@@ -37,13 +35,16 @@ class HashTable(Linked_List):
             hash_val = self.hash(key)
         except TypeError:
             raise ValueError("OK but try with a string this time")
+        current = self.find_bucket(hash_val).val.head
+        while current and current.val[0] != key:
+            current = current.next
+        if current:
+            return current.val[1]
+        else:
+            raise KeyError("I'm sorry, I don't have anything by that name")
+
+    def find_bucket(self, hash_val):
         current = self.head
         while current and current.val.id != hash_val:
             current = current.next
-        iterator = current.val.head
-        while iterator and iterator.val[0] != key:
-            iterator = iterator.next
-        if iterator:
-            return iterator.val[1]
-        else:
-            raise KeyError("I'm sorry, I don't have anything by that name")
+        return current
