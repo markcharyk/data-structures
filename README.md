@@ -15,5 +15,11 @@ A queue (as a double-linked list) with the following functions:
     dequeue(): Remove the item at the tail of the queue and return it
     size(): Return the number of nodes in the queue
 
+A hash table (a linked list of linked lists... defeating the purpose...) with the following functions:
+    A constructor that takes as an argument the size of the hash table
+    hash(key): Hashes the string key by its characters' ordinal values
+    set(key, val): Puts the key, val pair into the hash table
+    get(key): Gets the val paired with the key in the hash table
+
 
 [![Build Status](https://travis-ci.org/markcharyk/data-structures.png?branch=master)](https://travis-ci.org/markcharyk/data-structures)
