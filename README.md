@@ -21,5 +21,9 @@ A hash table (a linked list of linked lists... defeating the purpose...) with th
     set(key, val): Puts the key, val pair into the hash table
     get(key): Gets the val paired with the key in the hash table
 
+A make_month function for practicing hashing
+    A factory function for generating an object of a given year and month
+    With a day function that determines the day of the week of any given date
+
 
 [![Build Status](https://travis-ci.org/markcharyk/data-structures.png?branch=master)](https://travis-ci.org/markcharyk/data-structures)
