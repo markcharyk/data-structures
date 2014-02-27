@@ -7,10 +7,9 @@ def make_month(year, month):
 
 class Month(object):
     def __init__(self, year, month):
-        alphas, self.template = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'], []
+        self.template = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su']
         weekday, self.last = calendar.monthrange(year, month)
-        for date in xrange(7):
-            self.template.append(alphas[(weekday + date - 1) % 7])
+        self.template = self.template[weekday - 1::] + self.template[:weekday - 1:]
 
     def day(self, date):
         if date > self.last:
