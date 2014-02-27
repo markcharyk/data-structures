@@ -24,7 +24,7 @@ A hash table (a linked list of linked lists... defeating the purpose...) with th
 A make_month function for practicing hashing
     A factory function for generating an object of a given year and month
     With a day function that determines the day of the week of any given date
-    Collaborated with one Steven Babineau on this here code
-
+    Collaborated with one Steven Babineau on this here cod
+e
 
 [![Build Status](https://travis-ci.org/markcharyk/data-structures.png?branch=master)](https://travis-ci.org/markcharyk/data-structures)

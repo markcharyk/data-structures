@@ -14,5 +14,4 @@ class Month(object):
     def day(self, date):
         if date > self.last:
             raise ValueError("day is out of range")
-        index = date % 7
-        return self.template[index]
+        return self.template[date % 7]
