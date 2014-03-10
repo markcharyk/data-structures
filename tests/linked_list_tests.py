@@ -1,17 +1,18 @@
 import unittest
-import linked_list
+from data_structures.linked_list import Linked_List
+from data_structures.linked_list import Node
 
 
 class InitTest(unittest.TestCase):
     def testEqual(self):
-        self.failUnlessEqual(linked_list.Node(10).val, 10)
-        linked = linked_list.Linked_List()
+        self.failUnlessEqual(Node(10).val, 10)
+        linked = Linked_List()
         self.failUnlessEqual(linked.head, None)
 
 
 class InsertTest(unittest.TestCase):
     def testEqual(self):
-        linked = linked_list.Linked_List()
+        linked = Linked_List()
         linked.insert(10)
         self.failUnlessEqual(linked.head.val, 10)
         linked.insert(11)
@@ -20,7 +21,7 @@ class InsertTest(unittest.TestCase):
 
 class PopTest(unittest.TestCase):
     def testEqual(self):
-        linked = linked_list.Linked_List()
+        linked = Linked_List()
         linked.insert(10)
         linked.insert(11)
         linked.insert(12)
@@ -30,7 +31,7 @@ class PopTest(unittest.TestCase):
 
 class SizeTest(unittest.TestCase):
     def testEqual(self):
-        linked = linked_list.Linked_List()
+        linked = Linked_List()
         self.failUnlessEqual(linked.size(), 0)
         linked.insert(10)
         linked.insert(11)
@@ -40,7 +41,7 @@ class SizeTest(unittest.TestCase):
 
 class SearchTest(unittest.TestCase):
     def testEqual(self):
-        linked = linked_list.Linked_List()
+        linked = Linked_List()
         self.failUnlessEqual(linked.search(10), None)
         linked.insert(10)
         linked.insert(11)
@@ -50,7 +51,7 @@ class SearchTest(unittest.TestCase):
 
 class RemoveTest(unittest.TestCase):
     def testEqual(self):
-        linked = linked_list.Linked_List()
+        linked = Linked_List()
         self.failUnlessEqual(linked.remove(10), None)
         linked.insert(10)
         linked.insert(11)
@@ -65,7 +66,7 @@ class RemoveTest(unittest.TestCase):
 
 class StringTest(unittest.TestCase):
     def testEqual(self):
-        linked = linked_list.Linked_List()
+        linked = Linked_List()
         self.failUnlessEqual(linked.__str__(), "()")
         linked.insert(10)
         linked.insert(11)

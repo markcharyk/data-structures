@@ -1,10 +1,10 @@
 import unittest
-import hasher
+from data_structures.hasher import HashTable
 
 
 class TestInit(unittest.TestCase):
     def test_small_list(self):
-        ht = hasher.HashTable(32)
+        ht = HashTable(32)
         self.assertEqual(ht.size(), 32)
         current = ht.head
         for i in xrange(32):
@@ -12,7 +12,7 @@ class TestInit(unittest.TestCase):
             current = current.next
 
     def test_big_list(self):
-        ht = hasher.HashTable(1024)
+        ht = HashTable(1024)
         self.assertEqual(ht.size(), 1024)
         current = ht.head
         for i in xrange(1024):
@@ -22,7 +22,7 @@ class TestInit(unittest.TestCase):
 
 class TestHash(unittest.TestCase):
     def setUp(self):
-        self.ht = hasher.HashTable(16)
+        self.ht = HashTable(16)
 
     def test_non_string(self):
         with self.assertRaises(TypeError):
@@ -43,7 +43,7 @@ class TestHash(unittest.TestCase):
 
 class TestSet(unittest.TestCase):
     def setUp(self):
-        self.ht = hasher.HashTable(16)
+        self.ht = HashTable(16)
 
     def test_empty_list(self):
         self.ht.set('foo', 324)
@@ -78,7 +78,7 @@ class TestSet(unittest.TestCase):
 
 class TestGet(unittest.TestCase):
     def setUp(self):
-        self.ht = hasher.HashTable(16)
+        self.ht = HashTable(16)
 
     def test_empty_list(self):
         with self.assertRaises(KeyError):

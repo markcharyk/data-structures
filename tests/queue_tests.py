@@ -1,10 +1,10 @@
 import unittest
-import queue
+from data_structures.queue import Queue
 
 
 class testEnqueue(unittest.TestCase):
     def setUp(self):
-        self.q = queue.Queue()
+        self.q = Queue()
 
     def testEmptyQueue(self):
         self.q.enqueue(10)
@@ -30,7 +30,7 @@ class testEnqueue(unittest.TestCase):
 
 class testDequeue(unittest.TestCase):
     def setUp(self):
-        self.q = queue.Queue()
+        self.q = Queue()
 
     def testEmptyQueue(self):
         self.assertRaises(IndexError, self.q.dequeue)
@@ -58,7 +58,7 @@ class testDequeue(unittest.TestCase):
 
 class testSize(unittest.TestCase):
     def setUp(self):
-        self.q = queue.Queue()
+        self.q = Queue()
 
     def testEmptyQueue(self):
         self.assertEqual(self.q.size(), 0)
