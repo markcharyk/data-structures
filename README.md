@@ -1,4 +1,5 @@
 Implementations of several different data structures in Python. For practice!
+
 A Linked List with the following functions:
     insert(val): Add a node with the value = val at the head of the list
     pop(): Pop and return the item at the head of the list
@@ -24,7 +25,13 @@ A hash table (a linked list of linked lists... defeating the purpose...) with th
 A make_month function for practicing hashing
     A factory function for generating an object of a given year and month
     With a day function that determines the day of the week of any given date
-    Collaborated with one Steven Babineau on this here cod
-e
+    Collaborated with one Steven Babineau on this here code
+
+A binary search tree with the following functions:
+    insert(val): Insert a value into the tree
+    contains(val): Return a boolean indicating whether the val is in the tree
+    size(): Return the size of the tree
+    depth(): Return the depth of hte deepest leaf of the tree
+    balance(): Return a value indicating how well the tree is balanced around the root
 
 [![Build Status](https://travis-ci.org/markcharyk/data-structures.png?branch=master)](https://travis-ci.org/markcharyk/data-structures)
