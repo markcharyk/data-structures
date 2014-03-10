@@ -1,3 +1,4 @@
 argparse==1.2.1
+data-structures==0.1-dev
 distribute==0.6.24
 wsgiref==0.1.2
