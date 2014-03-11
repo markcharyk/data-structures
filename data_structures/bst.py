@@ -60,7 +60,7 @@ class BSTree(object):
         result = 0
         if self.val is None:
             return result
-        return max(self.left.depth() + 1, self.right.depth() + 1)
+        return max(self.left.depth(), self.right.depth()) + 1
 
     def balance(self):
         """Return a value representing the balance of the tree"""
