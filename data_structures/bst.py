@@ -66,7 +66,7 @@ class BSTree(object):
         """Return a value representing the balance of the tree"""
         if self.val is None:
             return 0
-        return self.left.size() - self.right.size()
+        return self.left.depth() - self.right.depth()
 
     def get_dot(self):
         """return the tree with root 'self' as a dot graph for visualization"""

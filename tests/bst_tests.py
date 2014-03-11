@@ -142,7 +142,7 @@ class testBalance(unittest.TestCase):
         self.bst.insert(1)
         self.bst.insert(8)
         self.bst.insert(3)
-        self.assertEqual(self.bst.balance(), -2)
+        self.assertEqual(self.bst.balance(), -1)
 
     def testFullLeft(self):
         self.bst.insert(5)
