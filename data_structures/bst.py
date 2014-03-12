@@ -94,16 +94,16 @@ class BSTree(object):
         """Return a generator that lists the elements
         in a breadth first order"""
         import queue
-        keeper, result = queue.Queue(), []
+        keeper = queue.Queue()
         keeper.enqueue(self)
         while(keeper.size() != 0):
             temp = keeper.dequeue()
-            result.append(temp.val)
+            if temp.val is not None:
+                yield temp.val
             if temp.left is not None:
                 keeper.enqueue(temp.left)
             if temp.right is not None:
                 keeper.enqueue(temp.right)
-        return (x for x in result if x is not None)
 
     def get_dot(self):
         """return the tree with root 'self' as a dot graph for visualization"""
