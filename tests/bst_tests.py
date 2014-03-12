@@ -161,5 +161,115 @@ class testBalance(unittest.TestCase):
         self.assertEqual(self.bst.balance(), 0)
 
 
+class testInOrder(unittest.TestCase):
+    def setUp(self):
+        self.bst = BSTree()
+        self.actual = []
+
+    def testEmpty(self):
+        for i in self.bst.in_order():
+            self.actual.append(i)
+        self.assertEqual([], self.actual)
+
+    def testOne(self):
+        self.bst.insert(2)
+        for i in self.bst.in_order():
+            self.actual.append(i)
+        self.assertEqual([2], self.actual)
+
+    def testMany(self):
+        self.bst.insert(2)
+        self.bst.insert(5)
+        self.bst.insert(1)
+        self.bst.insert(8)
+        self.bst.insert(3)
+        for i in self.bst.in_order():
+            self.actual.append(i)
+        self.assertEqual([1, 2, 3, 5, 8], self.actual)
+
+
+class testPreOrder(unittest.TestCase):
+    def setUp(self):
+        self.bst = BSTree()
+        self.actual = []
+
+    def testEmpty(self):
+        for i in self.bst.pre_order():
+            self.actual.append(i)
+        self.assertEqual([], self.actual)
+
+    def testOne(self):
+        self.bst.insert(2)
+        for i in self.bst.pre_order():
+            self.actual.append(i)
+        self.assertEqual([2], self.actual)
+
+    def testMany(self):
+        self.bst.insert(2)
+        self.bst.insert(5)
+        self.bst.insert(1)
+        self.bst.insert(8)
+        self.bst.insert(3)
+        for i in self.bst.pre_order():
+            self.actual.append(i)
+        self.assertEqual([2, 1, 5, 3, 8], self.actual)
+
+
+class testPostOrder(unittest.TestCase):
+    def setUp(self):
+        self.bst = BSTree()
+        self.actual = []
+
+    def testEmpty(self):
+        for i in self.bst.post_order():
+            self.actual.append(i)
+        self.assertEqual([], self.actual)
+
+    def testOne(self):
+        self.bst.insert(2)
+        for i in self.bst.post_order():
+            self.actual.append(i)
+        self.assertEqual([2], self.actual)
+
+    def testMany(self):
+        self.bst.insert(2)
+        self.bst.insert(5)
+        self.bst.insert(1)
+        self.bst.insert(8)
+        self.bst.insert(3)
+        for i in self.bst.post_order():
+            self.actual.append(i)
+        self.assertEqual([1, 3, 8, 5, 2], self.actual)
+
+
+class testBreadthFirst(unittest.TestCase):
+    def setUp(self):
+        self.bst = BSTree()
+        self.actual = []
+
+    def testEmpty(self):
+        for i in self.bst.breadth_first():
+            self.actual.append(i)
+        self.assertEqual([], self.actual)
+
+    def testOne(self):
+        self.bst.insert(2)
+        for i in self.bst.breadth_first():
+            self.actual.append(i)
+        self.assertEqual([2], self.actual)
+
+    def testMany(self):
+        self.bst.insert(2)
+        self.bst.insert(5)
+        self.bst.insert(1)
+        self.bst.insert(8)
+        self.bst.insert(3)
+        self.bst.insert(7)
+        self.bst.insert(4)
+        for i in self.bst.breadth_first():
+            self.actual.append(i)
+        self.assertEqual([2, 1, 5, 3, 8, 4, 7], self.actual)
+
+
 if __name__ == '__main__':
     unittest.main()

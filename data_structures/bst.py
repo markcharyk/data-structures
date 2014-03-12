@@ -3,27 +3,15 @@ import time
 
 
 class BSTree(object):
-    def __init__(self, *val):
+    def __init__(self, val=None):
         """Initialize a "leaf" of the tree to have a None value"""
-        if val != ():
-            self.val = val[0]
+        self.val = val
+        if val is not None:
             self.left = BSTree()
             self.right = BSTree()
         else:
-            self.val = None
             self.left = None
             self.right = None
-
-    def __str__(self):
-        """Return a string of all of the elements in the
-        tree and its decendents in order"""
-        result = ''
-        if self.left.val is not None:
-            result += str(self.left)
-        result += "%s " % str(self.val)
-        if self.right.val is not None:
-            result += str(self.right)
-        return result
 
     def insert(self, val):
         """Insert a value below the root of the tree"""
@@ -68,6 +56,55 @@ class BSTree(object):
             return 0
         return self.left.depth() - self.right.depth()
 
+    def in_order(self):
+        """Return a generator that lists the elements in order"""
+        if self.left is not None:
+            for i in self.left.in_order():
+                yield i
+        if self.val is not None:
+            yield self.val
+        if self.right is not None:
+            for i in self.right.in_order():
+                yield i
+
+    def pre_order(self):
+        """Return a generator that lists the elements from the root downward"""
+        if self.val is not None:
+            yield self.val
+        if self.left is not None:
+            for i in self.left.pre_order():
+                yield i
+        if self.right is not None:
+            for i in self.right.pre_order():
+                yield i
+
+    def post_order(self):
+        """Return a generator that lists the elements
+        from the children upward"""
+        if self.left is not None:
+            for i in self.left.post_order():
+                yield i
+        if self.right is not None:
+            for i in self.right.post_order():
+                yield i
+        if self.val is not None:
+            yield self.val
+
+    def breadth_first(self):
+        """Return a generator that lists the elements
+        in a breadth first order"""
+        import queue
+        keeper, result = queue.Queue(), []
+        keeper.enqueue(self)
+        while(keeper.size() != 0):
+            temp = keeper.dequeue()
+            result.append(temp.val)
+            if temp.left is not None:
+                keeper.enqueue(temp.left)
+            if temp.right is not None:
+                keeper.enqueue(temp.right)
+        return (x for x in result if x is not None)
+
     def get_dot(self):
         """return the tree with root 'self' as a dot graph for visualization"""
         return "digraph G{\n%s}" % ("" if self.val is None else (
@@ -110,3 +147,11 @@ if __name__ == '__main__':
     t3 = time.time()
     print "Random case: %f seconds" % (t2 - t1)
     print "Worst case: %f seconds" % (t3 - t2)
+    b3 = BSTree()
+    b3.insert(2)
+    b3.insert(5)
+    b3.insert(1)
+    b3.insert(8)
+    b3.insert(3)
+    for i in b3.post_order():
+        print i

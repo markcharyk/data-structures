@@ -33,5 +33,9 @@ A binary search tree with the following functions:
     size(): Return the size of the tree
     depth(): Return the depth of hte deepest leaf of the tree
     balance(): Return a value indicating how well the tree is balanced around the root
+    in_order(): Return a generator that traverses the list in order
+    pre_order(): Return a generator that traverses the list in a pre-order fashion
+    post_order(): Return a generator that traverses the list in a post-order fashion
+    breadth_first(): Return a generator that traverses the list in a breadth first fashion
 
 [![Build Status](https://travis-ci.org/markcharyk/data-structures.png?branch=master)](https://travis-ci.org/markcharyk/data-structures)
