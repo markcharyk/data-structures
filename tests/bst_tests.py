@@ -271,5 +271,94 @@ class testBreadthFirst(unittest.TestCase):
         self.assertEqual([2, 1, 5, 3, 8, 4, 7], self.actual)
 
 
+class testDelete(unittest.TestCase):
+    def setUp(self):
+        self.bst = BSTree()
+
+    def testEmpty(self):
+        exp_bst = self.bst
+        self.bst.delete(2)
+        self.assertEqual(exp_bst, self.bst)
+
+    def testOne(self):
+        exp_bst = self.bst
+        self.bst.insert(2)
+        self.bst.delete(2)
+        self.assertEqual(exp_bst, self.bst)
+
+    def testManyDeleteNoLeaves(self):
+        self.bst.insert(2)
+        self.bst.insert(5)
+        self.bst.insert(1)
+        self.bst.insert(8)
+        self.bst.insert(3)
+        self.bst.insert(7)
+        self.bst.insert(4)
+        self.bst.delete(7)
+        expected = [2, 1, 5, 3, 8, 4]
+        actual = []
+        for i in self.bst.breadth_first():
+            actual.append(i)
+        self.assertEqual(expected, actual)
+
+    def testManyDeleteOneLeaf(self):
+        self.bst.insert(2)
+        self.bst.insert(5)
+        self.bst.insert(1)
+        self.bst.insert(8)
+        self.bst.insert(3)
+        self.bst.insert(7)
+        self.bst.insert(4)
+        self.bst.delete(3)
+        expected = [2, 1, 5, 4, 8, 7]
+        actual = []
+        for i in self.bst.breadth_first():
+            actual.append(i)
+        self.assertEqual(expected, actual)
+
+    def testManyDeleteTwoLeaves(self):
+        self.bst.insert(2)
+        self.bst.insert(5)
+        self.bst.insert(1)
+        self.bst.insert(8)
+        self.bst.insert(3)
+        self.bst.insert(7)
+        self.bst.insert(4)
+        self.bst.delete(5)
+        expected = [2, 1, 7, 3, 8, 4]
+        actual = []
+        for i in self.bst.breadth_first():
+            actual.append(i)
+        self.assertEqual(expected, actual)
+
+    def testManyDeleteRoot(self):
+        self.bst.insert(2)
+        self.bst.insert(5)
+        self.bst.insert(1)
+        self.bst.insert(8)
+        self.bst.insert(3)
+        self.bst.insert(7)
+        self.bst.insert(4)
+        self.bst.delete(2)
+        expected = [3, 1, 5, 4, 8, 7]
+        actual = []
+        for i in self.bst.breadth_first():
+            actual.append(i)
+        self.assertEqual(expected, actual)
+
+    def testManyDeleteNone(self):
+        self.bst.insert(2)
+        self.bst.insert(5)
+        self.bst.insert(1)
+        self.bst.insert(8)
+        self.bst.insert(3)
+        self.bst.insert(7)
+        self.bst.insert(4)
+        expected = self.bst
+        self.bst.delete(6)
+        actual = self.bst
+        self.assertEqual(expected, actual)
+
+
 if __name__ == '__main__':
     unittest.main()

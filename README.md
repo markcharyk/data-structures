@@ -37,5 +37,6 @@ A binary search tree with the following functions:
     pre_order(): Return a generator that traverses the list in a pre-order fashion
     post_order(): Return a generator that traverses the list in a post-order fashion
     breadth_first(): Return a generator that traverses the list in a breadth first fashion
+    delete(val): Delete the val from the tree. If the val is not in the tree the function does nothing
 
 [![Build Status](https://travis-ci.org/markcharyk/data-structures.png?branch=master)](https://travis-ci.org/markcharyk/data-structures)

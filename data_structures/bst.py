@@ -105,6 +105,28 @@ class BSTree(object):
             if temp.right is not None:
                 keeper.enqueue(temp.right)
 
+    def delete(self, val):
+        # import pdb; pdb.set_trace()
+        if self.val is not None and self.val == val:
+            if self.left.val is None or self.right.val is None:
+                if self.left.val is None:
+                    self.val = self.right.val
+                    self.right.val = None
+                else:
+                    self.val = self.left.val
+                    self.left.val = None
+            else:
+                temp_val, temp = self.right.val, self.right
+                while temp.left.val is not None:
+                    temp_val = temp.left.val
+                    temp = temp.left
+                self.val = temp_val
+                self.right.delete(temp_val)
+        elif self.val is not None and self.val > val:
+            self.left.delete(val)
+        elif self.val is not None and self.val < val:
+            self.right.delete(val)
+
     def get_dot(self):
         """return the tree with root 'self' as a dot graph for visualization"""
         return "digraph G{\n%s}" % ("" if self.val is None else (
