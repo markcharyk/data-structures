@@ -107,25 +107,38 @@ class BSTree(object):
 
     def delete(self, val):
         # import pdb; pdb.set_trace()
-        if self.val is not None and self.val == val:
-            if self.left.val is None or self.right.val is None:
+        if self.val is not None and self.val == val:  # Found the node
+            if self.left.val is None or self.right.val is None:  # Case 1 or 2
                 if self.left.val is None:
                     self.val = self.right.val
                     self.right.val = None
                 else:
                     self.val = self.left.val
                     self.left.val = None
-            else:
-                temp_val, temp = self.right.val, self.right
-                while temp.left.val is not None:
-                    temp_val = temp.left.val
-                    temp = temp.left
-                self.val = temp_val
-                self.right.delete(temp_val)
-        elif self.val is not None and self.val > val:
+            elif self.balance() < 0:  # Case 3, unbalanced to the right
+                self._delete_successor(val)
+            else:  # Case 3, unbalanced to the left
+                self._delete_predecessor(val)
+        elif self.val is not None and self.val > val:  # Look to the left
             self.left.delete(val)
-        elif self.val is not None and self.val < val:
+        elif self.val is not None and self.val < val:  # Look to the right
             self.right.delete(val)
+
+    def _delete_successor(self, val):
+        temp_val, temp = self.right.val, self.right
+        while temp.left.val is not None:
+            temp_val = temp.left.val
+            temp = temp.left
+        self.val = temp_val
+        self.right.delete(temp_val)
+
+    def _delete_predecessor(self, val):
+        temp_val, temp = self.left.val, self.left
+        while temp.right.val is not None:
+            temp_val = temp.right.val
+            temp = temp.right
+        self.val = temp_val
+        self.left.delete(temp_val)
 
     def get_dot(self):
         """return the tree with root 'self' as a dot graph for visualization"""

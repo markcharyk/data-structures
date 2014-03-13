@@ -325,7 +325,7 @@ class testDelete(unittest.TestCase):
         self.bst.insert(7)
         self.bst.insert(4)
         self.bst.delete(5)
-        expected = [2, 1, 7, 3, 8, 4]
+        expected = [2, 1, 4, 3, 8, 7]
         actual = []
         for i in self.bst.breadth_first():
             actual.append(i)
