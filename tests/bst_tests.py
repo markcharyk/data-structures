@@ -359,6 +359,23 @@ class testDelete(unittest.TestCase):
         actual = self.bst
         self.assertEqual(expected, actual)
 
+    def testFullTreeOnSingleNode(self):
+        self.bst.insert(2)
+        self.bst.insert(5)
+        self.bst.insert(1)
+        self.bst.insert(8)
+        self.bst.insert(3)
+        self.bst.insert(7)
+        self.bst.insert(4)
+        self.bst.insert(3.5)
+        self.bst.insert(4.5)
+        expected = [2, 1, 5, 4, 8, 3.5, 4.5, 7]
+        self.bst.delete(3)
+        actual = []
+        for i in self.bst.breadth_first():
+            actual.append(i)
+        self.assertEqual(expected, actual)
+
 
 if __name__ == '__main__':
     unittest.main()

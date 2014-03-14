@@ -110,11 +110,13 @@ class BSTree(object):
         if self.val is not None and self.val == val:  # Found the node
             if self.left.val is None or self.right.val is None:  # Case 1 or 2
                 if self.left.val is None:
-                    self.val = self.right.val
-                    self.right.val = None
+                    temp_val = self.right.val
+                    self.right, self.left = self.right.right, self.right.left
+                    self.val = temp_val
                 else:
-                    self.val = self.left.val
-                    self.left.val = None
+                    temp_val = self.left.val
+                    self.left, self.right = self.left.left, self.left.right
+                    self.val = temp_val
             elif self.balance() < 0:  # Case 3, unbalanced to the right
                 self._delete_successor(val)
             else:  # Case 3, unbalanced to the left
