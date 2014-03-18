@@ -39,4 +39,6 @@ A binary search tree with the following functions:
     breadth_first(): Return a generator that traverses the list in a breadth first fashion
     delete(val): Delete the val from the tree. If the val is not in the tree the function does nothing
 
+An insertion sort function. When called from the command line, it will print out a simple comparison between best and worst case scenarios of sorting 16384 integers
+
 [![Build Status](https://travis-ci.org/markcharyk/data-structures.png?branch=master)](https://travis-ci.org/markcharyk/data-structures)
