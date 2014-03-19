@@ -13,3 +13,4 @@ script:
     - python tests/hash_tests.py
     - python tests/make_month_tests.py
     - python tests/insert_sort_tests.py
+    - python tests/merge_sort_tests.py
