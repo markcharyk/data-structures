@@ -19,7 +19,7 @@ def quick_sort(unsorted, pivot_select=None):
 
 def select_pivot(lst, selector):
     if selector == 'random':
-        return lst.pop(random.randint(0, len(lst)))
+        return lst.pop(random.randint(0, len(lst) - 1))
     elif selector == 'middle':
         return lst.pop(len(lst) // 2)
     elif selector == 'median':
