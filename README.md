@@ -39,13 +39,13 @@ A binary search tree with the following functions:
     breadth_first(): Return a generator that traverses the list in a breadth first fashion
     delete(val): Delete the val from the tree. If the val is not in the tree the function does nothing
 
-An insertion sort function.
+An insertion sort function (Code translated from Wikipedia pseudo-code: http://en.wikipedia.org/wiki/Insertionsort).
 
-A merge sort function.
+A merge sort function (Code translated from Wikipedia pseudo-code: http://en.wikipedia.org/wiki/Mergesort).
 
-A quick sort function.
+A quick sort function (Code translated from Wikipedia pseudo-code: http://en.wikipedia.org/wiki/Quicksort).
 
 When the sort functions are called from the command line, they will print out a simple comparison between best and worst case scenarios of sorting a large number of integers.
-With bonus analysis for pivot selection in the quick sort function.
+With bonus analysis for pivot selection in the quick sort function (Sedgewick refers to Robert Sedgewick as mentioned in the Wikipedia article).
 
 [![Build Status](https://travis-ci.org/markcharyk/data-structures.png?branch=master)](https://travis-ci.org/markcharyk/data-structures)
