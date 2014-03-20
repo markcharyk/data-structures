@@ -43,6 +43,9 @@ An insertion sort function.
 
 A merge sort function.
 
+A quick sort function.
+
 When the sort functions are called from the command line, they will print out a simple comparison between best and worst case scenarios of sorting a large number of integers.
+With bonus analysis for pivot selection in the quick sort function.
 
 [![Build Status](https://travis-ci.org/markcharyk/data-structures.png?branch=master)](https://travis-ci.org/markcharyk/data-structures)
