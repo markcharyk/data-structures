@@ -29,6 +29,18 @@ class TestInsertSort(unittest.TestCase):
         actual = radix_sort(self.unsorted)
         self.assertEqual(expected, actual)
 
+    def testBaseTwo(self):
+        unsorted = [0b110, 0b101, 0b1111111, 0b1, 0b0]
+        expected = [0b0, 0b1, 0b101, 0b110, 0b1111111]
+        actual = radix_sort(unsorted, 2)
+        self.assertEqual(expected, actual)
+
+    def testHexadecimal(self):
+        unsorted = [0xff, 0x1, 0x2b8c, 0x0, 0xfffff]
+        expected = [0x0, 0x1, 0xff, 0x2b8c, 0xfffff]
+        actual = radix_sort(unsorted, 16)
+        self.assertEqual(expected, actual)
+
 
 if __name__ == '__main__':
     unittest.main()
