@@ -45,6 +45,8 @@ A merge sort function (Code translated from Wikipedia pseudo-code: http://en.wik
 
 A quick sort function (Code translated from Wikipedia pseudo-code: http://en.wikipedia.org/wiki/Quicksort).
 
+A radix sort function
+
 When the sort functions are called from the command line, they will print out a simple comparison between best and worst case scenarios of sorting a large number of integers.
 With bonus analysis for pivot selection in the quick sort function (Sedgewick refers to Robert Sedgewick as mentioned in the Wikipedia article).
 
