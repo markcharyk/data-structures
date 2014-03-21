@@ -6,7 +6,7 @@ def radix_sort(unsorted, base=10):
     if not unsorted:
         return []
     # Determine the maximum size
-    highest = int(math.log10(max(unsorted))) + 1
+    highest = int(math.log(max(unsorted), base)) + 1
     result = unsorted
     for i in xrange(1, highest+1):
         # Build the right number of buckets
