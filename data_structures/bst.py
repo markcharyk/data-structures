@@ -6,6 +6,7 @@ class BSTree(object):
     def __init__(self, val=None):
         """Initialize a "leaf" of the tree to have a None value"""
         self.val = val
+        self.parent = None
         if val is not None:
             self.left = BSTree()
             self.right = BSTree()
@@ -23,11 +24,11 @@ class BSTree(object):
             self.right.insert(val)
 
     def contains(self, val):
-        """Return whether the item is contained in the tree"""
+        """Return the node if the value is contained in the tree"""
         if self.val is None:
-            return False
+            return self
         elif self.val == val:
-            return True
+            return self
         elif self.val > val:
             return self.left.contains(val)
         return self.right.contains(val)
@@ -106,7 +107,6 @@ class BSTree(object):
                 keeper.enqueue(temp.right)
 
     def delete(self, val):
-        # import pdb; pdb.set_trace()
         if self.val is not None and self.val == val:  # Found the node
             if self.left.val is None or self.right.val is None:  # Case 1 or 2
                 if self.left.val is None:

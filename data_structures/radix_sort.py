@@ -13,7 +13,7 @@ def radix_sort(unsorted, base=10):
         buckets = [[] for x in range(base)]
         # Bucket-ize the list
         for j in result:
-            digit = j % (base ** (i)) // (base ** (i-1))
+            digit = j % (base ** i) // (base ** (i-1))
             buckets[digit].append(j)
         # Move the items from the buckets to a result list
         result = [item for bucket in buckets for item in bucket]
