@@ -79,15 +79,17 @@ class AVLTree(object):
                 self.remove_found_node(tree_node)
 
     def remove_found_node(self, found):
+        # import pdb; pdb.set_trace()
         temp = None
         if found.left is None or found.right is None:
             if found.parent is None:
                 self.root = None
                 found = None
                 return None
+            temp = found
         else:
             temp = self.succ(found)
-            found.val = temp.key
+            found.val = temp.val
         temp2 = None
         if temp.left is not None:
             temp2 = temp.left
