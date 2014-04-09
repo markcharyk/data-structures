@@ -1,6 +1,3 @@
-from random import shuffle
-
-
 class Node(object):
     def __init__(self, val):
         self.left, self.right, self.parent = None, None, None
