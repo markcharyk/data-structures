@@ -49,7 +49,7 @@ class TestInsert(unittest.TestCase):
         self.assertEqual(self.tree.root.right.right.val, 8)
 
 
-class testHeight(unittest.TestCase):
+class TestHeight(unittest.TestCase):
     def setUp(self):
         self.tree = AVLTree()
 
@@ -69,7 +69,7 @@ class testHeight(unittest.TestCase):
         self.assertEqual(self.tree.height(self.tree.root), 2)
 
 
-class testRemove(unittest.TestCase):
+class TestRemove(unittest.TestCase):
     def setUp(self):
         self.tree = AVLTree()
 
@@ -121,6 +121,41 @@ class testRemove(unittest.TestCase):
         self.assertIsNone(self.tree.root.right.left)
         self.assertEqual(self.tree.root.right.val, 7)
         self.assertEqual(self.tree.root.right.right.val, 8)
+
+
+class TestBalancing(unittest.TestCase):
+    def setUp(self):
+        self.tree = AVLTree()
+        self.tree.insert(5)
+        self.tree.insert(4)
+        self.tree.insert(6)
+        self.n1 = Node(1)
+        self.n2 = Node(2)
+        self.n3 = Node(3)
+        self.n7 = Node(7)
+        self.n8 = Node(8)
+        self.n9 = Node(9)
+
+    def test_left(self):
+        self.tree.root.right.right = self.n7
+        self.n7.parent = self.tree.root.right
+        self.tree.root.right.right.right = self.n8
+        self.n8.parent = self.tree.root.right.right
+        self.tree.rotate_left(self.tree.root.right)
+        self.assertEqual(self.tree.root.right.val, 7)
+        self.assertEqual(self.tree.root.right.left.val, 6)
+        self.assertEqual(self.tree.root.right.right.val, 8)
+
+    def test_right(self):
+        self.tree.root.left.left = self.n3
+        self.n3.parent = self.tree.root.left
+        self.tree.root.left.left.left = self.n2
+        self.n2.parent = self.tree.root.left.left
+        self.tree.rotate_right(self.tree.root.left)
+        self.assertEqual(self.tree.root.left.val, 3)
+        self.assertEqual(self.tree.root.left.left.val, 2)
+        self.assertEqual(self.tree.root.left.right.val, 4)
+
 
 if __name__ == '__main__':
     unittest.main()
