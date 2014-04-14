@@ -133,4 +133,32 @@ class TestDeleteMin(unittest.TestCase):
 
 
 class TestDownheap(unittest.TestCase):
-    pass
+    def setUp(self):
+        self.h = Heap()
+        self.h.insert(5, 'Five')
+
+    def test_once_left(self):
+        self.h.heap.append(Node(2, 'Two'))
+        self.h.heap.append(Node(3, 'Three'))
+        self.h._downheap(0)
+        self.assertEqual(self.h.heap[0].val, 'Two')
+        self.assertEqual(self.h.heap[1].val, 'Five')
+
+    def test_once_right(self):
+        self.h.heap.append(Node(2, 'Three'))
+        self.h.heap.append(Node(3, 'Two'))
+        self.h._downheap(0)
+        self.assertEqual(self.h.heap[0].val, 'Two')
+        self.assertEqual(self.h.heap[2].val, 'Five')
+
+    def test_many(self):
+        self.h.insert(3, 'Three')
+        self.h.insert(8, 'Eight')
+        self.h.insert(10, 'Ten')
+        self.h.insert(13, 'Thirteen')
+        self.h.insert(11, 'Eleven')
+        self.h.insert(12, 'Twelve')
+        self.h.insert(4, 'Four')
+        self.h.heap.append(Node(2, 'Two'))
+        self.h._downheap(0)
+        self.assertEqual(self.h.heap[0].val, 'Two')
