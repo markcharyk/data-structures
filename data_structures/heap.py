@@ -12,7 +12,6 @@ class Heap(object):
         self.heap = []
 
     def insert(self, key, val):
-        # import pdb; pdb.set_trace()
         self.heap.append(Node(key, val))
         self._upheap(len(self.heap) - 1)
 
@@ -24,8 +23,25 @@ class Heap(object):
                 self._upheap((idx-1) // 2)
 
     def delete_min(self):
+        # import pdb; pdb.set_trace()
         if self.heap:
-            return self.heap.pop().val
+            if len(self.heap) == 1:
+                return self.heap.pop().val
+            temp = self.heap.pop()
+            self.heap[0], self.heap[-1] = self.heap[-1], self.heap[0]
+            self._downheap(0)
+            return temp.val
 
     def _downheap(self, idx):
-        pass
+        new = 0
+        if 2 * idx + 2 < len(self.heap):
+            if self.heap[2 * idx + 2].key <= self.heap[2 * idx + 1].key:
+                new = 2 * idx + 2
+            else:
+                new = 2 * idx + 1
+        elif 2 * idx + 1 < len(self.heap):
+            new = 2 * idx + 1
+        # if new = 0 here, the node has no "children"
+        if new and self.heap[idx].key > self.heap[new].key:
+            self.heap[idx], self.heap[new] = self.heap[new], self.heap[idx]
+            self._downheap(new)
