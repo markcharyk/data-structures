@@ -84,84 +84,112 @@ class TestUpheap(unittest.TestCase):
         self.assertEqual(self.h.heap[0].val, 'Two')
 
 
-# class TestDeleteMin(unittest.TestCase):
-#     def setUp(self):
-#         self.h = Heap()
-#         self.h.insert(5, 'Five')
+class TestDeleteMin(unittest.TestCase):
+    def setUp(self):
+        self.h = Heap()
+        self.h.insert(5, 'Five')
 
-#     def test_one_and_empty(self):
-#         self.assertEqual(self.h.delete_min(), 'Five')
-#         self.assertIsNone(self.h.delete_min())
+    def test_one_and_empty(self):
+        self.assertEqual(self.h.delete_min(), 'Five')
+        self.assertIsNone(self.h.delete_min())
 
-#     def test_left(self):
-#         self.h.insert(8, 'Eight')
-#         self.assertEqual(self.h.delete_min(), 'Five')
-#         self.assertEqual(self.h.heap[0].val, 'Eight')
+    def test_left(self):
+        self.h.insert(8, 'Eight')
+        self.assertEqual(self.h.delete_min(), 'Five')
+        self.assertEqual(self.h.heap[0].val, 'Eight')
 
-#     def test_right(self):
-#         self.h.insert(8, 'Eight')
-#         self.h.insert(10, 'Ten')
-#         self.assertEqual(self.h.delete_min(), 'Five')
-#         self.assertEqual(self.h.heap[0].val, 'Eight')
-#         self.assertEqual(self.h.heap[1].val, 'Ten')
+    def test_right(self):
+        self.h.insert(8, 'Eight')
+        self.h.insert(10, 'Ten')
+        self.assertEqual(self.h.delete_min(), 'Five')
+        self.assertEqual(self.h.heap[0].val, 'Eight')
+        self.assertEqual(self.h.heap[1].val, 'Ten')
 
-#     def test_dupe(self):
-#         self.h.insert(5, 'Five')
-#         self.assertEqual(self.h.delete_min(), 'Five')
-#         self.assertEqual(self.h.heap[0].val, 'Five')
+    def test_dupe(self):
+        self.h.insert(5, 'Five')
+        self.assertEqual(self.h.delete_min(), 'Five')
+        self.assertEqual(self.h.heap[0].val, 'Five')
 
-#     def test_new_min(self):
-#         self.h.insert(8, 'Eight')
-#         self.h.insert(10, 'Ten')
-#         self.h.insert(3, 'Three')
-#         self.assertEqual(self.h.delete_min(), 'Three')
-#         self.assertEqual(self.h.heap[0].val, 'Five')
+    def test_new_min(self):
+        self.h.insert(8, 'Eight')
+        self.h.insert(10, 'Ten')
+        self.h.insert(3, 'Three')
+        self.assertEqual(self.h.delete_min(), 'Three')
+        self.assertEqual(self.h.heap[0].val, 'Five')
 
-#     def test_multiple(self):
-#         self.h.insert(3, 'Three')
-#         self.h.insert(8, 'Eight')
-#         self.h.insert(10, 'Ten')
-#         self.h.insert(13, 'Thirteen')
-#         self.h.insert(11, 'Eleven')
-#         self.h.insert(12, 'Twelve')
-#         self.h.insert(4, 'Four')
-#         self.assertEqual(self.h.delete_min(), 'Three')
-#         self.assertEqual(self.h.delete_min(), 'Four')
-#         self.assertEqual(self.h.delete_min(), 'Five')
-#         self.assertEqual(self.h.delete_min(), 'Eight')
-#         self.assertEqual(self.h.delete_min(), 'Ten')
+    def test_multiple(self):
+        self.h.insert(3, 'Three')
+        self.h.insert(8, 'Eight')
+        self.h.insert(10, 'Ten')
+        self.h.insert(13, 'Thirteen')
+        self.h.insert(11, 'Eleven')
+        self.h.insert(12, 'Twelve')
+        self.h.insert(4, 'Four')
+        self.assertEqual(self.h.delete_min(), 'Three')
+        self.assertEqual(self.h.delete_min(), 'Four')
+        self.assertEqual(self.h.delete_min(), 'Five')
+        self.assertEqual(self.h.delete_min(), 'Eight')
+        self.assertEqual(self.h.delete_min(), 'Ten')
 
 
-# class TestDownheap(unittest.TestCase):
-#     def setUp(self):
-#         self.h = Heap()
-#         self.h.insert(5, 'Five')
+class TestDownheap(unittest.TestCase):
+    def setUp(self):
+        self.h = Heap()
+        self.h.insert(5, 'Five')
 
-#     def test_once_left(self):
-#         self.h.heap.append(Node(2, 'Two'))
-#         self.h.heap.append(Node(3, 'Three'))
-#         self.h._downheap(0)
-#         self.assertEqual(self.h.heap[0].val, 'Two')
-#         self.assertEqual(self.h.heap[1].val, 'Five')
+    def test_once_left(self):
+        self.h.heap.append(Node(2, 'Two'))
+        self.h.heap.append(Node(3, 'Three'))
+        self.h._downheap(0)
+        self.assertEqual(self.h.heap[0].val, 'Two')
+        self.assertEqual(self.h.heap[1].val, 'Five')
 
-#     def test_once_right(self):
-#         self.h.heap.append(Node(2, 'Three'))
-#         self.h.heap.append(Node(3, 'Two'))
-#         self.h._downheap(0)
-#         self.assertEqual(self.h.heap[0].val, 'Two')
-#         self.assertEqual(self.h.heap[2].val, 'Five')
+    def test_once_right(self):
+        self.h.heap.append(Node(3, 'Three'))
+        self.h.heap.append(Node(2, 'Two'))
+        self.h._downheap(0)
+        self.assertEqual(self.h.heap[0].val, 'Two')
+        self.assertEqual(self.h.heap[2].val, 'Five')
 
-#     def test_many(self):
-#         self.h.insert(3, 'Three')
-#         self.h.insert(8, 'Eight')
-#         self.h.insert(10, 'Ten')
-#         self.h.insert(13, 'Thirteen')
-#         self.h.insert(11, 'Eleven')
-#         self.h.insert(12, 'Twelve')
-#         self.h.insert(4, 'Four')
-#         self.h.heap.append(Node(2, 'Two'))
-#         self.h._downheap(0)
-#         self.assertEqual(self.h.heap[0].val, 'Two')
+    def test_many_left(self):
+        self.h.insert(3, 'Three')
+        self.h.insert(8, 'Eight')
+        self.h.insert(10, 'Ten')
+        self.h.insert(13, 'Thirteen')
+        self.h.insert(11, 'Eleven')
+        self.h.insert(12, 'Twelve')
+        self.h.insert(4, 'Four')
+        self.h.insert(2, 'Two')
+        self.h.heap.pop()
+        self.h.heap[0] = Node(5, 'Five')
+        self.h._downheap(0)
+        self.assertEqual(self.h.heap[0].val, 'Three')
+        self.assertEqual(self.h.heap[1].val, 'Four')
+        self.assertEqual(self.h.heap[3].val, 'Five')
+        with self.assertRaises(IndexError):
+            self.h.heap[8]
+
+    def test_many_right(self):
+        self.h.insert(3, 'Three')
+        self.h.insert(8, 'Eight')
+        self.h.insert(10, 'Ten')
+        self.h.insert(13, 'Thirteen')
+        self.h.insert(11, 'Eleven')
+        self.h.insert(12, 'Twelve')
+        self.h.insert(4, 'Four')
+        self.h.insert(2, 'Two')
+        self.h.insert(15, 'Fifteen')
+        self.h.insert(9, 'Nine')
+        self.h.insert(14, 'Fourteen')
+        self.h.insert(1, 'One')
+        self.h.heap.pop()
+        self.h.heap[0] = Node(11, 'Eleven')
+        self.h._downheap(0)
+        self.assertEqual(self.h.heap[0].val, 'Two')
+        self.assertEqual(self.h.heap[2].val, 'Eight')
+        self.assertEqual(self.h.heap[5].val, 'Eleven')
+        with self.assertRaises(IndexError):
+            self.h.heap[12]
 
 
 if __name__ == '__main__':

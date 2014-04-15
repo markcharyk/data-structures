@@ -4,6 +4,8 @@ class Node(object):
         self.val = val
 
     def __repr__(self):
+        """For printing out the heap and its nodes
+        It's here to save me typing during debugging"""
         return "(%d, %s)" % (self.key, self.val)
 
 
@@ -16,19 +18,18 @@ class Heap(object):
         self._upheap(len(self.heap) - 1)
 
     def _upheap(self, idx):
-        if idx > 0:
+        if idx:
             if self.heap[(idx-1) // 2].key > self.heap[idx].key:
                 self.heap[(idx-1) // 2], self.heap[idx] = \
                     self.heap[idx], self.heap[(idx-1) // 2]
                 self._upheap((idx-1) // 2)
 
     def delete_min(self):
-        # import pdb; pdb.set_trace()
         if self.heap:
             if len(self.heap) == 1:
                 return self.heap.pop().val
             temp = self.heap.pop()
-            self.heap[0], self.heap[-1] = self.heap[-1], self.heap[0]
+            self.heap[0], temp = temp, self.heap[0]
             self._downheap(0)
             return temp.val
 
