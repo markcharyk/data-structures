@@ -31,7 +31,7 @@ A binary search tree with the following functions:
     insert(val): Insert a value into the tree
     contains(val): Return a boolean indicating whether the val is in the tree
     size(): Return the size of the tree
-    depth(): Return the depth of hte deepest leaf of the tree
+    depth(): Return the depth of the deepest leaf of the tree
     balance(): Return a value indicating how well the tree is balanced around the root
     in_order(): Return a generator that traverses the list in order
     pre_order(): Return a generator that traverses the list in a pre-order fashion
@@ -46,6 +46,12 @@ A merge sort function (Code translated from Wikipedia pseudo-code: http://en.wik
 A quick sort function (Code translated from Wikipedia pseudo-code: http://en.wikipedia.org/wiki/Quicksort).
 
 A radix sort function
+
+An AVL tree that balances on insert and delete
+
+A heap implemented as a list with the following functions:
+    insert(key, val): Insert a key/value pair into the heap
+    delete_min(): Delete the object with the smallest key from the heap and return its corresponding value
 
 When the sort functions are called from the command line, they will print out a simple comparison between best and worst case scenarios of sorting a large number of integers.
 With bonus analysis for pivot selection in the quick sort function (Sedgewick refers to Robert Sedgewick as mentioned in the Wikipedia article).
