@@ -1,22 +1,22 @@
 import unittest
-from data_structures.ll_stack import LLStack
+from data_structures.stack import Stack
 
 
 class testPop(unittest.TestCase):
     def setUp(self):
-        self.stack = LLStack()
+        self.stack = Stack()
 
     def testEmptyList(self):
         self.assertRaises(IndexError, self.stack.pop)
 
     def testListOfOne(self):
-        self.stack = LLStack(1)
+        self.stack = Stack(1)
         self.assertEqual(self.stack.pop().val, 1)
         self.stack.push("Hello")
         self.assertEqual(self.stack.pop().val, "Hello")
 
     def testLongList(self):
-        self.stack = LLStack(10, 11, 12, 13, 14)
+        self.stack = Stack(10, 11, 12, 13, 14)
         self.assertEqual(self.stack.pop().val, 14)
         self.assertEqual(self.stack.pop().val, 13)
 
@@ -26,15 +26,15 @@ class testPop(unittest.TestCase):
 
 class testPush(unittest.TestCase):
     def setUp(self):
-        self.stack = LLStack(10, 11, 12, 13, 14)
+        self.stack = Stack(10, 11, 12, 13, 14)
 
     def testEmpyList(self):
-        self.stack = LLStack()
+        self.stack = Stack()
         self.stack.push(10)
         self.assertEqual(self.stack.head.val, 10)
 
     def testListOfOne(self):
-        self.stack = LLStack()
+        self.stack = Stack()
         self.stack.push(10)
         self.stack.push(11)
         self.assertEqual(self.stack.head.val, 11)

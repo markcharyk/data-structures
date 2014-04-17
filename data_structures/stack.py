@@ -1,4 +1,4 @@
-class LLStack(object):
+class Stack(object):
 
     def __init__(self, *args):
         self.head = None
