@@ -2,8 +2,8 @@ from data_structures.stack import Stack
 
 
 class Node(object):
-    def __init__(self, key, val):
-        self.elems = [(key, val), (), (), ]
+    def __init__(self, key=None, val=None):
+        self.elems = [(key, val), (None, None), (None, None), ]
 
     def __repr__(self):
         """For printing out the heap and its nodes
@@ -27,6 +27,9 @@ class Node(object):
 
 
 class BTree(object):
+    def __init__(self):
+        self.root = Node()
+
     def search(self, key):
         pass
 

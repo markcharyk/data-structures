@@ -3,6 +3,9 @@ from data_structures.b_tree import Node, BTree
 
 
 class TestAddToNode(unittest.TestCase):
+    def setUp(self):
+        self.n = Node()
+
     def test_one(self):
         pass
 
@@ -11,6 +14,9 @@ class TestAddToNode(unittest.TestCase):
 
 
 class TestDelFromNode(unittest.TestCase):
+    def setUp(self):
+        self.n = Node()
+
     def test_one_underflow(self):
         pass
 
@@ -19,6 +25,12 @@ class TestDelFromNode(unittest.TestCase):
 
 
 class TestIsInNode(unittest.TestCase):
+    def setUp(self):
+        self.n = Node()
+
+    def test_empy(self):
+        pass
+
     def test_first(self):
         pass
 
@@ -30,11 +42,17 @@ class TestIsInNode(unittest.TestCase):
 
 
 class TestSplitNode(unittest.TestCase):
+    def setUp(self):
+        self.n = Node()
+
     def test_split(self):
         pass
 
 
 class TestSearchTree(unittest.TestCase):
+    def setUp(self):
+        self.b = BTree()
+
     def test_at_root(self):
         pass
 
@@ -49,6 +67,9 @@ class TestSearchTree(unittest.TestCase):
 
 
 class TestInsertTree(unittest.TestCase):
+    def setUp(self):
+        self.b = BTree()
+
     def test_empty(self):
         pass
 
@@ -66,6 +87,9 @@ class TestInsertTree(unittest.TestCase):
 
 
 class TestDeleteTree(unittest.TestCase):
+    def setUp(self):
+        self.b = BTree()
+
     def test_empty(self):
         pass
 
