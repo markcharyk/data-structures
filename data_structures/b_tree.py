@@ -25,7 +25,9 @@ class Node(object):
                 break
 
     def del_from_node(self, idx):
-        pass
+        self.elems.pop(idx)
+        self.count -= 1
+        self.elems.append((None, None))
 
     def has(self, key):
         pass
