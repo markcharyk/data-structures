@@ -30,7 +30,10 @@ class Node(object):
         self.elems.append((None, None))
 
     def has(self, key):
-        pass
+        for i in range(3):
+            if self.elems[i][0] == key:
+                return True
+        return False
 
     def split_node(self):
         pass
