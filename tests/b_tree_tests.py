@@ -6,16 +6,57 @@ class TestAddToNode(unittest.TestCase):
     def setUp(self):
         self.n = Node()
 
-    def test_one(self):
-        pass
+    def test_empty(self):
+        self.n.add_to_node(4, 'Four')
+        self.assertEqual(self.n.elems[0][1], 'Four')
+        self.assertIsNone(self.n.elems[1][1])
+        self.assertIsNone(self.n.elems[2][1])
 
-    def test_two_overflow(self):
-        pass
+    def test_one_post(self):
+        self.n.add_to_node(4, 'Four')
+        self.n.add_to_node(5, 'Five')
+        self.assertEqual(self.n.elems[0][1], 'Four')
+        self.assertEqual(self.n.elems[1][1], 'Five')
+        self.assertIsNone(self.n.elems[2][1])
+
+    def test_one_pre(self):
+        self.n.add_to_node(4, 'Four')
+        self.n.add_to_node(3, 'Three')
+        self.assertEqual(self.n.elems[0][1], 'Three')
+        self.assertEqual(self.n.elems[1][1], 'Four')
+        self.assertIsNone(self.n.elems[2][1])
+
+    def test_two_post(self):
+        self.n.add_to_node(4, 'Four')
+        self.n.add_to_node(5, 'Five')
+        self.n.add_to_node(6, 'Six')
+        self.assertEqual(self.n.elems[0][1], 'Four')
+        self.assertEqual(self.n.elems[1][1], 'Five')
+        self.assertEqual(self.n.elems[2][1], 'Six')
+
+    def test_two_mid(self):
+        self.n.add_to_node(4, 'Four')
+        self.n.add_to_node(6, 'Six')
+        self.n.add_to_node(5, 'Five')
+        self.assertEqual(self.n.elems[0][1], 'Four')
+        self.assertEqual(self.n.elems[1][1], 'Five')
+        self.assertEqual(self.n.elems[2][1], 'Six')
+
+    def test_two_pre(self):
+        self.n.add_to_node(4, 'Four')
+        self.n.add_to_node(5, 'Five')
+        self.n.add_to_node(3, 'Three')
+        self.assertEqual(self.n.elems[0][1], 'Three')
+        self.assertEqual(self.n.elems[1][1], 'Four')
+        self.assertEqual(self.n.elems[2][1], 'Five')
 
 
 class TestDelFromNode(unittest.TestCase):
     def setUp(self):
         self.n = Node()
+
+    def test_empty(self):
+        pass
 
     def test_one_underflow(self):
         pass
