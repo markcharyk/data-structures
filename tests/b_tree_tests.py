@@ -117,9 +117,13 @@ class TestSplitNode(unittest.TestCase):
 
     def test_split(self):
         a, b, c = self.n.split_node()
-        self.assertEqual(a, Node(4, 'Four'))
+        self.assertEqual(a.elems[0][0], 4)
+        self.assertEqual(a.elems[0][1], 'Four')
+        self.assertIsNone(a.elems[1][1])
         self.assertEqual(a.count, 1)
-        self.assertEqual(c, Node(6, 'Six'))
+        self.assertEqual(c.elems[0][0], 6)
+        self.assertEqual(c.elems[0][1], 'Six')
+        self.assertIsNone(c.elems[1][1])
         self.assertEqual(c.count, 1)
         self.assertEqual(b, (5, 'Five'))
 

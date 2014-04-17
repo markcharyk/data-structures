@@ -12,7 +12,7 @@ class Node(object):
         """For printing out the heap and its nodes
         It's here to save me typing during debugging"""
         result = "["
-        for i in range(self.count):
+        for i in range(3):
             result += '%s, ' % str(self.elems[i])
         return '%s]' % result
 
@@ -36,7 +36,11 @@ class Node(object):
         return False
 
     def split_node(self):
-        pass
+        return (
+            Node(self.elems[0][0], self.elems[0][1]),
+            self.elems[1],
+            Node(self.elems[2][0], self.elems[2][1])
+            )
 
 
 class BTree(object):
