@@ -111,9 +111,17 @@ class TestHas(unittest.TestCase):
 class TestSplitNode(unittest.TestCase):
     def setUp(self):
         self.n = Node()
+        self.n.add_to_node(4, 'Four')
+        self.n.add_to_node(5, 'Five')
+        self.n.add_to_node(6, 'Six')
 
     def test_split(self):
-        pass
+        a, b, c = self.n.split_node()
+        self.assertEqual(a, Node(4, 'Four'))
+        self.assertEqual(a.count, 1)
+        self.assertEqual(c, Node(6, 'Six'))
+        self.assertEqual(c.count, 1)
+        self.assertEqual(b, (5, 'Five'))
 
 
 class TestSearchTree(unittest.TestCase):
