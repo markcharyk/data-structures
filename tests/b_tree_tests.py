@@ -182,3 +182,7 @@ class TestDeleteTree(unittest.TestCase):
 
     def test_delete_level(self):
         pass
+
+
+if __name__ == '__main__':
+    unittest.main()
