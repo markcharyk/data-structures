@@ -54,15 +54,27 @@ class TestAddToNode(unittest.TestCase):
 class TestDelFromNode(unittest.TestCase):
     def setUp(self):
         self.n = Node()
-
-    def test_empty(self):
-        pass
+        self.n.add_to_node(4, 'Four')
 
     def test_one_underflow(self):
-        pass
+        self.n.del_from_node(0)
+        self.assertIsNone(self.n.elems[0][1])
+        self.assertIsNone(self.n.elems[1][1])
+        self.assertIsNone(self.n.elems[2][1])
 
-    def test_two(self):
-        pass
+    def test_two_pre(self):
+        self.n.add_to_node(5, 'Five')
+        self.n.del_from_node(0)
+        self.assertEqual(self.n.elems[0][1], 'Five')
+        self.assertIsNone(self.n.elems[1][1])
+        self.assertIsNone(self.n.elems[2][1])
+
+    def test_two_post(self):
+        self.n.add_to_node(5, 'Five')
+        self.n.del_from_node(1)
+        self.assertEqual(self.n.elems[0][1], 'Four')
+        self.assertIsNone(self.n.elems[1][1])
+        self.assertIsNone(self.n.elems[2][1])
 
 
 class TestIsInNode(unittest.TestCase):
