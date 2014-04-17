@@ -19,7 +19,7 @@ class Node(object):
     def del_from_node(self, idx):
         pass
 
-    def is_in_node(self, key):
+    def has(self, key):
         pass
 
     def split_node(self):

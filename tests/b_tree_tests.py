@@ -11,6 +11,7 @@ class TestAddToNode(unittest.TestCase):
         self.assertEqual(self.n.elems[0][1], 'Four')
         self.assertIsNone(self.n.elems[1][1])
         self.assertIsNone(self.n.elems[2][1])
+        self.assertEqual(self.n.count, 1)
 
     def test_one_post(self):
         self.n.add_to_node(4, 'Four')
@@ -18,6 +19,7 @@ class TestAddToNode(unittest.TestCase):
         self.assertEqual(self.n.elems[0][1], 'Four')
         self.assertEqual(self.n.elems[1][1], 'Five')
         self.assertIsNone(self.n.elems[2][1])
+        self.assertEqual(self.n.count, 2)
 
     def test_one_pre(self):
         self.n.add_to_node(4, 'Four')
@@ -25,6 +27,7 @@ class TestAddToNode(unittest.TestCase):
         self.assertEqual(self.n.elems[0][1], 'Three')
         self.assertEqual(self.n.elems[1][1], 'Four')
         self.assertIsNone(self.n.elems[2][1])
+        self.assertEqual(self.n.count, 2)
 
     def test_two_post(self):
         self.n.add_to_node(4, 'Four')
@@ -33,6 +36,7 @@ class TestAddToNode(unittest.TestCase):
         self.assertEqual(self.n.elems[0][1], 'Four')
         self.assertEqual(self.n.elems[1][1], 'Five')
         self.assertEqual(self.n.elems[2][1], 'Six')
+        self.assertEqual(self.n.count, 3)
 
     def test_two_mid(self):
         self.n.add_to_node(4, 'Four')
@@ -41,6 +45,7 @@ class TestAddToNode(unittest.TestCase):
         self.assertEqual(self.n.elems[0][1], 'Four')
         self.assertEqual(self.n.elems[1][1], 'Five')
         self.assertEqual(self.n.elems[2][1], 'Six')
+        self.assertEqual(self.n.count, 3)
 
     def test_two_pre(self):
         self.n.add_to_node(4, 'Four')
@@ -49,6 +54,7 @@ class TestAddToNode(unittest.TestCase):
         self.assertEqual(self.n.elems[0][1], 'Three')
         self.assertEqual(self.n.elems[1][1], 'Four')
         self.assertEqual(self.n.elems[2][1], 'Five')
+        self.assertEqual(self.n.count, 3)
 
 
 class TestDelFromNode(unittest.TestCase):
@@ -61,6 +67,7 @@ class TestDelFromNode(unittest.TestCase):
         self.assertIsNone(self.n.elems[0][1])
         self.assertIsNone(self.n.elems[1][1])
         self.assertIsNone(self.n.elems[2][1])
+        self.assertEqual(self.n.count, 0)
 
     def test_two_pre(self):
         self.n.add_to_node(5, 'Five')
@@ -68,6 +75,7 @@ class TestDelFromNode(unittest.TestCase):
         self.assertEqual(self.n.elems[0][1], 'Five')
         self.assertIsNone(self.n.elems[1][1])
         self.assertIsNone(self.n.elems[2][1])
+        self.assertEqual(self.n.count, 1)
 
     def test_two_post(self):
         self.n.add_to_node(5, 'Five')
@@ -75,23 +83,29 @@ class TestDelFromNode(unittest.TestCase):
         self.assertEqual(self.n.elems[0][1], 'Four')
         self.assertIsNone(self.n.elems[1][1])
         self.assertIsNone(self.n.elems[2][1])
+        self.assertEqual(self.n.count, 1)
 
 
-class TestIsInNode(unittest.TestCase):
+class TestHas(unittest.TestCase):
     def setUp(self):
         self.n = Node()
 
     def test_empy(self):
-        pass
+        self.assertFalse(self.n.has(4))
 
     def test_first(self):
-        pass
+        self.n.add_to_node(4, 'Four')
+        self.assertTrue(self.n.has(4))
 
     def test_second(self):
-        pass
+        self.n.add_to_node(3, 'Three')
+        self.n.add_to_node(4, 'Four')
+        self.assertTrue(self.n.has(4))
 
     def not_there(self):
-        pass
+        self.n.add_to_node(3, 'Three')
+        self.n.add_to_node(4, 'Four')
+        self.assertFalse(self.n.has(5))
 
 
 class TestSplitNode(unittest.TestCase):
