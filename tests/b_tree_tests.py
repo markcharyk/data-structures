@@ -131,18 +131,29 @@ class TestSplitNode(unittest.TestCase):
 class TestSearchTree(unittest.TestCase):
     def setUp(self):
         self.b = BTree()
+        self.b.insert(1, 'One')
+        self.b.insert(2, 'Two')
+        self.b.insert(3, 'Three')
+        self.b.insert(4, 'Four')
+        self.b.insert(5, 'Five')
+        self.b.insert(6, 'Six')
+        self.b.insert(7, 'Seven')
+        self.b.insert(8, 'Eight')
+        self.b.insert(9, 'Nine')
 
     def test_at_root(self):
-        pass
+        self.assertEqual(self.b.search(4), 'Four')
 
     def test_in_middle(self):
-        pass
+        self.assertEqual(self.b.search(2), 'Two')
+        self.assertEqual(self.b.search(8), 'Eight')
 
     def test_at_leaf(self):
-        pass
+        self.assertEqual(self.b.search(1), 'One')
+        self.assertEqual(self.b.search(9), 'Nine')
 
     def test_not_in_tree(self):
-        pass
+        self.assertFalse(self.b.search(10))
 
 
 class TestInsertTree(unittest.TestCase):
