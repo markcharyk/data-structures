@@ -59,3 +59,7 @@ class BTree(object):
 
     def delete(self, key):
         pass
+
+
+class MissingError(BaseException):
+    pass

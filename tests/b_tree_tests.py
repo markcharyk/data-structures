@@ -1,5 +1,5 @@
 import unittest
-from data_structures.b_tree import Node, BTree
+from data_structures.b_tree import Node, BTree, MissingError
 
 
 class TestAddToNode(unittest.TestCase):
@@ -168,7 +168,8 @@ class TestSearchTree(unittest.TestCase):
         self.assertEqual(self.b.search(9), 'Nine')
 
     def test_not_in_tree(self):
-        self.assertFalse(self.b.search(10))
+        with self.assertRaises(MissingError):
+            self.b.search(10)
 
 
 class TestInsertTree(unittest.TestCase):
@@ -224,22 +225,60 @@ class TestDeleteTree(unittest.TestCase):
         self.b = BTree()
 
     def test_empty(self):
-        pass
+        with self.assertRaises(MissingError):
+            self.b.delete(4)
 
     def test_one_root(self):
-        pass
+        self.b.insert(4, 'Four')
+        self.b.delete(4)
+        with self.assertRaises(MissingError):
+            self.b.search(4)
 
     def test_two_root(self):
-        pass
+        self.b.insert(4, 'Four')
+        self.b.insert(5, 'Five')
+        self.b.delete(4)
+        self.assertEqual(self.b.root.elems[0][1], 'Five')
+        self.assertIsNone(self.b.root.elems[1][1])
 
     def test_no_underflow(self):
-        pass
+        self.b.insert(4, 'Four')
+        self.b.insert(2, 'Two')
+        self.b.insert(6, 'Six')
+        self.b.insert(8, 'Eight')
+        self.b.insert(1, 'One')
+        self.b.delete(6)
+        self.assertEqual(self.b.root.right.elems[0][1], 'Eight')
+        self.assertIsNone(self.b.root.right.elems[1][1])
 
     def test_underflow(self):
-        pass
+        self.b.insert(1, 'One')
+        self.b.insert(2, 'Two')
+        self.b.insert(3, 'Three')
+        self.b.insert(4, 'Four')
+        self.b.insert(5, 'Five')
+        self.b.insert(6, 'Six')
+        self.b.insert(7, 'Seven')
+        self.b.insert(8, 'Eight')
+        self.b.insert(9, 'Nine')
+        self.b.delete(8)
+        self.assertEqual(self.b.root.right.elems[0][1], 'Seven')
+        self.assertIsNone(self.b.root.right.elems[1][1])
+        self.assertEqual(self.b.root.right.left.elems[0][1], 'Five')
+        self.assertEqual(self.b.root.right.left.elems[1][1], 'Six')
+        self.assertIsNone(self.b.root.right.mid)
+        self.assertEqual(self.b.root.right.right.elems[0][1], 'Nine')
+        self.assertIsNone(self.b.root.right.right.elems[1][1])
 
     def test_delete_level(self):
-        pass
+        self.b.insert(4, 'Four')
+        self.b.insert(2, 'Two')
+        self.b.insert(6, 'Six')
+        self.b.delete(6)
+        self.assertEqual(self.root.elems[0][1], 'Two')
+        self.assertEqual(self.root.elems[1][1], 'Four')
+        self.assertIsNone(self.root.left)
+        self.assertIsNone(self.root.right)
 
 
 if __name__ == '__main__':
