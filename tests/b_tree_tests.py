@@ -130,16 +130,31 @@ class TestSplitNode(unittest.TestCase):
 
 class TestSearchTree(unittest.TestCase):
     def setUp(self):
+        four = Node(4, 'Four')
+        two = Node(2, 'Two')
+        two.parent = four
+        six_eight = Node(6, 'Six')
+        six_eight.add_to_node(8, 'Eight')
+        six_eight.parent = four
+        four.left = two
+        four.right = six_eight
+        one = Node(1, 'One')
+        one.parent = two
+        three = Node(3, 'Three')
+        three.parent = two
+        two.left = one
+        two.right = three
+        five = Node(5, 'Five')
+        five.parent = six_eight
+        seven = Node(7, 'Seven')
+        seven.parent = six_eight
+        nine = Node(9, 'Nine')
+        nine.parent = six_eight
+        six_eight.left = five
+        six_eight.mid = seven
+        six_eight.right = nine
         self.b = BTree()
-        self.b.insert(1, 'One')
-        self.b.insert(2, 'Two')
-        self.b.insert(3, 'Three')
-        self.b.insert(4, 'Four')
-        self.b.insert(5, 'Five')
-        self.b.insert(6, 'Six')
-        self.b.insert(7, 'Seven')
-        self.b.insert(8, 'Eight')
-        self.b.insert(9, 'Nine')
+        self.b.root = four
 
     def test_at_root(self):
         self.assertEqual(self.b.search(4), 'Four')

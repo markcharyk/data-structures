@@ -7,6 +7,10 @@ class Node(object):
         if key is not None:
             self.count = 1
         self.elems = [(key, val), (None, None), (None, None), ]
+        self.parent = None
+        self.left = None
+        self.mid = None
+        self.right = None
 
     def __repr__(self):
         """For printing out the heap and its nodes
