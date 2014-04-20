@@ -51,8 +51,28 @@ class BTree(object):
     def __init__(self):
         self.root = Node()
 
-    def search(self, key):
-        pass
+    def search(self, node, key):
+        # import pdb; pdb.set_trace() 
+        if node.has(key):
+            if node.elems[0][0] == key:
+                return node.elems[0][1]
+            return node.elems[1][1]
+        try:
+            result = self.search(node.left, key)
+        except:
+            pass
+        try:
+            result = self.search(node.mid, key)
+        except:
+            pass
+        try:
+            result = self.search(node.right, key)
+        except:
+            pass
+        try:
+            return result
+        except:
+            raise MissingError
 
     def insert(self, key, val):
         pass
