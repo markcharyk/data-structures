@@ -52,27 +52,17 @@ class BTree(object):
         self.root = Node()
 
     def search(self, node, key):
-        # import pdb; pdb.set_trace() 
         if node.has(key):
             if node.elems[0][0] == key:
                 return node.elems[0][1]
             return node.elems[1][1]
-        try:
-            result = self.search(node.left, key)
-        except:
-            pass
-        try:
-            result = self.search(node.mid, key)
-        except:
-            pass
-        try:
-            result = self.search(node.right, key)
-        except:
-            pass
-        try:
-            return result
-        except:
-            raise MissingError
+        elif node.left is not None and key < node.elems[0][0]:
+            return self.search(node.left, key)
+        elif node.mid is not None and key < node.elems[1][0]:
+            return self.search(node.mid, key)
+        elif node.right is not None:
+            return self.search(node.right, key)
+        raise MissingError
 
     def insert(self, key, val):
         pass
