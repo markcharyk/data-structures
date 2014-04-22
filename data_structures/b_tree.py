@@ -64,8 +64,16 @@ class BTree(object):
             return self.search(node.right, key)
         raise MissingError
 
-    def insert(self, key, val):
-        pass
+    def insert(self, node, key, val):
+        if node.has(key):
+            return
+        elif node.left is not None and key < node.elems[0][0]:
+            return self.insert(node.left, key, val)
+        elif node.mid is not None and key < node.elems[1][0]:
+            return self.insert(node.mid, key, val)
+        elif node.right is not None:
+            return self.insert(node.right, key, val)
+        node.add_to_node(key, val)
 
     def delete(self, key):
         pass
