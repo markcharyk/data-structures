@@ -172,18 +172,18 @@ class TestSearchTree(unittest.TestCase):
             self.b.search(self.b.root, 10)
 
 
-# class TestInsertTree(unittest.TestCase):
-#     def setUp(self):
-#         self.b = BTree()
+class TestInsertTree(unittest.TestCase):
+    def setUp(self):
+        self.b = BTree()
 
-#     def test_empty(self):
-#         self.b.insert(5, 'Five')
-#         self.assertEqual(self.b.root.elems[0][1], 'Five')
+    def test_empty(self):
+        self.b.insert(self.b.root, 5, 'Five')
+        self.assertEqual(self.b.root.elems[0][1], 'Five')
 
-#     def test_at_root(self):
-#         self.b.insert(5, 'Five')
-#         self.b.insert(4, 'Four')
-#         self.assertEqual(self.b.root.elems[0][1], 'Four')
+    def test_at_root(self):
+        self.b.insert(self.b.root, 5, 'Five')
+        self.b.insert(self.b.root, 4, 'Four')
+        self.assertEqual(self.b.root.elems[0][1], 'Four')
 
 #     def test_new_level(self):
 #         self.b.insert(4, 'Four')
