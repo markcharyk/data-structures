@@ -7,10 +7,7 @@ class Node(object):
         if key is not None:
             self.count = 1
         self.elems = [(key, val), (None, None), (None, None), ]
-        self.parent = None
-        self.left = None
-        self.mid = None
-        self.right = None
+        self.children = []
 
     def __repr__(self):
         """For printing out the heap and its nodes
@@ -50,30 +47,44 @@ class Node(object):
 class BTree(object):
     def __init__(self):
         self.root = Node()
+        self.stack = Stack()
 
     def search(self, node, key):
         if node.has(key):
             if node.elems[0][0] == key:
                 return node.elems[0][1]
             return node.elems[1][1]
-        elif node.left is not None and key < node.elems[0][0]:
-            return self.search(node.left, key)
-        elif node.mid is not None and key < node.elems[1][0]:
-            return self.search(node.mid, key)
-        elif node.right is not None:
-            return self.search(node.right, key)
-        raise MissingError
+        elif not node.children:
+            raise MissingError
+        elif key < node.elems[0][0]:
+            return self.search(node.children[0], key)
+        elif (node.count == 2 and key < node.elems[1][0]) or node.count == 1:
+            return self.search(node.children[1], key)
+        else:
+            return self.search(node.children[2], key)
 
-    def insert(self, node, key, val):
-        if node.has(key):
-            return
-        elif node.left is not None and key < node.elems[0][0]:
-            return self.insert(node.left, key, val)
-        elif node.mid is not None and key < node.elems[1][0]:
-            return self.insert(node.mid, key, val)
-        elif node.right is not None:
-            return self.insert(node.right, key, val)
-        node.add_to_node(key, val)
+    # def insert(self, node, key, val):
+    #     if node.has(key):
+    #         self.stack = Stack()
+    #         return
+    #     self.stack.push(node)
+    #     if node.left is not None and key < node.elems[0][0]:
+    #         return self.insert(node.left, key, val)
+    #     elif node.mid is not None and key < node.elems[1][0]:
+    #         return self.insert(node.mid, key, val)
+    #     elif node.right is not None:
+    #         return self.insert(node.right, key, val)
+    #     node.add_to_node(key, val)
+    #     if node.count == 3:
+    #         node = self._split(node)
+
+    # def _split(self, node):
+    #     new1, mid_elem, new2 = node.split_node()
+    #     self.stack.pop()
+    #     parent = self.stack.head
+    #     parent.add_to_node(mid_elem[0], mid_elem[1])
+    #     if mid_elem[0] < parent.elems[0][0] and parent.count == 2:
+    #         parent.left, parent.mid = new1, new2
 
     def delete(self, key):
         pass
