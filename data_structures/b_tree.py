@@ -50,41 +50,61 @@ class BTree(object):
         self.stack = Stack()
 
     def search(self, node, key):
+        """Searches the tree for a specific key and returns
+        the associated value if it is found
+        If it is not found, raises a custom error"""
         if node.has(key):
             if node.elems[0][0] == key:
                 return node.elems[0][1]
             return node.elems[1][1]
         elif not node.children:
+            # The search has reached a leaf node w/o finding a match
             raise MissingError
         elif key < node.elems[0][0]:
             return self.search(node.children[0], key)
+        # Check if a middle child exists
         elif (node.count == 2 and key < node.elems[1][0]) or node.count == 1:
             return self.search(node.children[1], key)
         else:
+            # A third child exists
             return self.search(node.children[2], key)
 
-    # def insert(self, node, key, val):
-    #     if node.has(key):
-    #         self.stack = Stack()
-    #         return
-    #     self.stack.push(node)
-    #     if node.left is not None and key < node.elems[0][0]:
-    #         return self.insert(node.left, key, val)
-    #     elif node.mid is not None and key < node.elems[1][0]:
-    #         return self.insert(node.mid, key, val)
-    #     elif node.right is not None:
-    #         return self.insert(node.right, key, val)
-    #     node.add_to_node(key, val)
-    #     if node.count == 3:
-    #         node = self._split(node)
+    def insert(self, node, key, val):
+        """Inserts a key-value pair into the tree
+        No-op if the key already exists"""
+        self.stack.push(node)
+        if node.has(key):
+            self.stack = Stack()
+            return
+        elif not node.children:
+            node.add_to_node(key, val)
+            if node.count == 3:
+                self._split(node)
+            self.stack = Stack()
+            return
+        elif key < node.elems[0][0]:
+            return self.insert(node.children[0], key, val)
+        elif (node.count == 2 and key < node.elems[1][0]) or node.count == 1:
+            return self.insert(node.children[1], key, val)
+        else:
+            return self.insert(node.children[2], key, val)
 
-    # def _split(self, node):
-    #     new1, mid_elem, new2 = node.split_node()
-    #     self.stack.pop()
-    #     parent = self.stack.head
-    #     parent.add_to_node(mid_elem[0], mid_elem[1])
-    #     if mid_elem[0] < parent.elems[0][0] and parent.count == 2:
-    #         parent.left, parent.mid = new1, new2
+    def _split(self, node):
+        new1, mid_elem, new2 = node.split_node()
+        self.stack.pop()
+        if self.stack.head:
+            parent = self.stack.head.val
+            parent.children.remove(node)
+        else:
+            # The node being split is the root
+            parent = Node()
+            self.root = parent
+        parent.add_to_node(mid_elem[0], mid_elem[1])
+        parent.children.extend([new1, new2])
+        parent.children.sort(key=lambda nod: nod.elems[0][0])
+        if node.children:
+            new1.children, new2.children = \
+                node.children[:2], node.children[-2:]
 
     def delete(self, key):
         pass

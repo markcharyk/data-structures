@@ -165,54 +165,52 @@ class TestSearchTree(unittest.TestCase):
             self.b.search(self.b.root, 10)
 
 
-# class TestInsertTree(unittest.TestCase):
-#     def setUp(self):
-#         self.b = BTree()
+class TestInsertTree(unittest.TestCase):
+    def setUp(self):
+        self.b = BTree()
 
-#     def test_empty(self):
-#         self.b.insert(self.b.root, 5, 'Five')
-#         print self.b.stack
-#         self.assertEqual(self.b.root.elems[0][1], 'Five')
+    def test_empty(self):
+        self.b.insert(self.b.root, 5, 'Five')
+        self.assertEqual(self.b.root.elems[0][1], 'Five')
 
-#     def test_at_root(self):
-#         self.b.insert(self.b.root, 5, 'Five')
-#         self.b.insert(self.b.root, 4, 'Four')
-#         print self.b.stack
-#         self.assertEqual(self.b.root.elems[0][1], 'Four')
+    def test_at_root(self):
+        self.b.insert(self.b.root, 5, 'Five')
+        self.b.insert(self.b.root, 4, 'Four')
+        self.assertEqual(self.b.root.elems[0][1], 'Four')
 
-#     def test_new_level(self):
-#         self.b.insert(self.b.root, 4, 'Four')
-#         self.b.insert(self.b.root, 6, 'Six')
-#         self.b.insert(self.b.root, 5, 'Five')
-#         # self.assertEqual(self.b.root.elems[0][1], 'Five')
-#         # self.assertIsNone(self.b.root.elems[1][1])
-#         # self.assertEqual(self.b.root.left.elems[0][1], 'Four')
-#         # self.assertIsNone(self.b.root.left.elems[1][1])
-#         # self.assertEqual(self.b.root.right.elems[0][1], 'Six')
-#         # self.assertIsNone(self.b.root.right.elems[1][1])
+    def test_new_level(self):
+        self.b.insert(self.b.root, 4, 'Four')
+        self.b.insert(self.b.root, 6, 'Six')
+        self.b.insert(self.b.root, 5, 'Five')
+        self.assertEqual(self.b.root.elems[0][1], 'Five')
+        self.assertIsNone(self.b.root.elems[1][1])
+        self.assertEqual(self.b.root.children[0].elems[0][1], 'Four')
+        self.assertIsNone(self.b.root.children[0].elems[1][1])
+        self.assertEqual(self.b.root.children[1].elems[0][1], 'Six')
+        self.assertIsNone(self.b.root.children[1].elems[1][1])
 
-#     def test_no_split(self):
-#         self.b.insert(self.b.root, 4, 'Four')
-#         self.b.insert(self.b.root, 2, 'Two')
-#         self.b.insert(self.b.root, 6, 'Six')
-#         self.b.insert(self.b.root, 8, 'Eight')
-#         self.b.insert(self.b.root, 1, 'One')
-#         # self.assertEqual(self.b.root.left.elems[0][1], 'One')
-#         # self.assertEqual(self.b.root.right.elems[1][1], 'Eight')
+    def test_no_split(self):
+        self.b.insert(self.b.root, 4, 'Four')
+        self.b.insert(self.b.root, 2, 'Two')
+        self.b.insert(self.b.root, 6, 'Six')
+        self.b.insert(self.b.root, 8, 'Eight')
+        self.b.insert(self.b.root, 1, 'One')
+        self.assertEqual(self.b.root.children[0].elems[0][1], 'One')
+        self.assertEqual(self.b.root.children[1].elems[1][1], 'Eight')
 
-#     def test_split_node(self):
-#         self.b.insert(self.b.root, 4, 'Four')
-#         self.b.insert(self.b.root, 2, 'Two')
-#         self.b.insert(self.b.root, 6, 'Six')
-#         self.b.insert(self.b.root, 8, 'Eight')
-#         self.b.insert(self.b.root, 1, 'One')
-#         self.b.insert(self.b.root, 7, 'Seven')
-        # self.assertEqual(self.b.root.elems[0][1], 'Four')
-        # self.assertEqual(self.b.root.elems[1][1], 'Seven')
-        # self.assertEqual(self.b.root.mid.elems[0][1], 'Six')
-        # self.assertIsNone(self.b.root.mid.elems[1][1])
-        # self.assertEqual(self.b.root.right.elems[0][1], 'Eight')
-        # self.assertIsNone(self.b.root.right.elems[1][1])
+    def test_split_node(self):
+        self.b.insert(self.b.root, 4, 'Four')
+        self.b.insert(self.b.root, 2, 'Two')
+        self.b.insert(self.b.root, 6, 'Six')
+        self.b.insert(self.b.root, 8, 'Eight')
+        self.b.insert(self.b.root, 1, 'One')
+        self.b.insert(self.b.root, 7, 'Seven')
+        self.assertEqual(self.b.root.elems[0][1], 'Four')
+        self.assertEqual(self.b.root.elems[1][1], 'Seven')
+        self.assertEqual(self.b.root.children[1].elems[0][1], 'Six')
+        self.assertIsNone(self.b.root.children[1].elems[1][1])
+        self.assertEqual(self.b.root.children[2].elems[0][1], 'Eight')
+        self.assertIsNone(self.b.root.children[2].elems[1][1])
 
 
 # class TestDeleteTree(unittest.TestCase):
