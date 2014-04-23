@@ -106,7 +106,24 @@ class BTree(object):
             new1.children, new2.children = \
                 node.children[:2], node.children[-2:]
 
-    def delete(self, key):
+    def delete(self, node, key):
+        pass
+
+    def _get_succ(self, node, key):
+        if node.elems[0][1] and node.elems[0][1] == key:
+            next_node = node.children[2]
+        else:
+            next_node = node.children[1]
+        while next_node.children:
+            next_node = next_node.children[0]
+        result = (next_node.elems[0][0], next_node.elms[0][1])
+        next_node.del_from_node(0)
+        return result
+
+    def _transfer(self, parent, child):
+        pass
+
+    def _fuse(self, node1, node2):
         pass
 
 
