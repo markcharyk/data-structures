@@ -126,7 +126,7 @@ class BTree(object):
             next_node = node.children[1]
         while next_node.children:
             next_node = next_node.children[0]
-        result = (next_node.elems[0][0], next_node.elms[0][1])
+        result = next_node.elems[0]
         next_node.del_from_node(0)
         return result
 
