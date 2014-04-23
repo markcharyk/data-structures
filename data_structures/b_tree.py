@@ -107,7 +107,17 @@ class BTree(object):
                 node.children[:2], node.children[-2:]
 
     def delete(self, node, key):
-        pass
+        if node.has(key) and not node.children:
+            if key == node.elems[0][0]:
+                node.del_from_node(0)
+            else:
+                node.del_from_node(1)
+            return  # but check for underflow
+        elif node.has(key):
+            if key == node.elems[0][0]:
+                node.elems[0] = self._get_succ(node, key)
+            else:
+                node.elems[1] = self._get_succ(node, key)
 
     def _get_succ(self, node, key):
         if node.elems[0][1] and node.elems[0][1] == key:
