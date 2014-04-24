@@ -96,7 +96,6 @@ class BTree(object):
             parent = self.stack.head.val
             parent.children.remove(node)
         else:
-            # The node being split is the root
             parent = Node()
             self.root = parent
         parent.add_to_node(mid_elem[0], mid_elem[1])
@@ -105,6 +104,8 @@ class BTree(object):
         if node.children:
             new1.children, new2.children = \
                 node.children[:2], node.children[-2:]
+        if parent.count == 3:
+            self._split(parent)
 
     def delete(self, node, key):
         if node.has(key) and not node.children:
