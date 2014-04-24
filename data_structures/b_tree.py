@@ -108,7 +108,6 @@ class BTree(object):
             self._split(parent)
 
     def delete(self, node, key):
-        import pdb; pdb.set_trace()
         self.stack.push(node)
         if node.has(key) and not node.children:
             if key == node.elems[0][0]:
