@@ -113,22 +113,24 @@ class BTree(object):
                 node.del_from_node(0)
             else:
                 node.del_from_node(1)
-            return  # but check for underflow
+            if not node.count:
+                pass
+            return
         elif node.has(key):
             if key == node.elems[0][0]:
-                node.elems[0] = self._get_succ(node, key)
+                node.elems[0] = self._get_pred(node, key)
             else:
-                node.elems[1] = self._get_succ(node, key)
+                node.elems[1] = self._get_pred(node, key)
 
-    def _get_succ(self, node, key):
-        if node.elems[0][1] and node.elems[0][1] == key:
-            next_node = node.children[2]
+    def _get_pred(self, node, key):
+        if node.elems[0][0] == key:
+            next_node = node.children[0]
         else:
             next_node = node.children[1]
         while next_node.children:
-            next_node = next_node.children[0]
-        result = next_node.elems[0]
-        next_node.del_from_node(0)
+            next_node = next_node.children[-1]
+        result = next_node.elems[next_node.count - 1]
+        self.delete(next_node, next_node.elems[next_node.count - 1][0])
         return result
 
     def _transfer(self, parent, child):
@@ -140,3 +142,15 @@ class BTree(object):
 
 class MissingError(BaseException):
     pass
+
+
+def set_up(tree):
+    tree.insert(tree.root, 1, 1)
+    tree.insert(tree.root, 2, 2)
+    tree.insert(tree.root, 3, 3)
+    tree.insert(tree.root, 4, 4)
+    tree.insert(tree.root, 5, 5)
+    tree.insert(tree.root, 6, 6)
+    tree.insert(tree.root, 7, 7)
+    tree.insert(tree.root, 8, 8)
+    tree.insert(tree.root, 9, 9)
