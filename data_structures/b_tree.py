@@ -110,15 +110,15 @@ class BTree(object):
     def delete(self, node, key):
         self.stack.push(node)
         if node.has(key) and not node.children:
+            # Node is a leaf
             if key == node.elems[0][0]:
                 node.del_from_node(0)
             else:
                 node.del_from_node(1)
             if not node.count:
-                chil = self.stack.head.next.val.children
-                for i in chil:
-                    if i.elems[0][0] is None:
-                        self.stack.head.next.val.children.remove(i)
+                # Node is newly empty
+                self.stack.head.next.val.children = [x for x in self.stack.head.next.val.children if x.elems[0][0] is not None]
+                self._pull_down(node)
             return
         elif node.has(key):
             if key == node.elems[0][0]:
@@ -137,6 +137,9 @@ class BTree(object):
         result = next_node.elems[next_node.count - 1]
         self.delete(next_node, next_node.elems[next_node.count - 1][0])
         return result
+
+    def _pull_down(self, node):
+        pass
 
     def _transfer(self, parent, child):
         pass
@@ -159,3 +162,4 @@ def set_up(tree):
     tree.insert(tree.root, 7, 7)
     tree.insert(tree.root, 8, 8)
     tree.insert(tree.root, 9, 9)
+    tree.insert(tree.root, 10, 10)
