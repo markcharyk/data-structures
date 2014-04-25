@@ -43,6 +43,13 @@ class Node(object):
             Node(self.elems[2][0], self.elems[2][1])
             )
 
+    def is_legal(self):
+        if self.count == 1 and len(self.children) == 2:
+            return True
+        elif self.count == 2 and len(self.children) == 3:
+            return True
+        return False
+
 
 class BTree(object):
     def __init__(self):
@@ -118,7 +125,7 @@ class BTree(object):
             if not node.count:
                 # Node is newly empty
                 self.stack.head.next.val.children = [x for x in self.stack.head.next.val.children if x.elems[0][0] is not None]
-                self._pull_down(node)
+                while
             return
         elif node.has(key):
             if key == node.elems[0][0]:
