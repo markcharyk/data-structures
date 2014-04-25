@@ -124,8 +124,8 @@ class BTree(object):
                 node.del_from_node(1)
             if not node.count:
                 # Node is newly empty
+                self._borrow(node, self.stack.head.next.val)
                 self.stack.head.next.val.children = [x for x in self.stack.head.next.val.children if x.elems[0][0] is not None]
-                while
             return
         elif node.has(key):
             if key == node.elems[0][0]:
@@ -145,8 +145,12 @@ class BTree(object):
         self.delete(next_node, next_node.elems[next_node.count - 1][0])
         return result
 
-    def _pull_down(self, node):
-        pass
+    def _borrow(self, node, parent):
+        elements = [x for x in parent.elems if x[0] is not None]
+        elements.extend([y.elems[0] for y in parent.children if y.elems[0][0] is not None])
+        elements.extend([y.elems[1] for y in parent.children if y.elems[1][0] is not None])
+        elements.sort(key=lambda elem: elem[0])
+        return elements
 
     def _transfer(self, parent, child):
         pass
