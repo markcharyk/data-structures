@@ -150,7 +150,24 @@ class BTree(object):
         elements.extend([y.elems[0] for y in parent.children if y.elems[0][0] is not None])
         elements.extend([y.elems[1] for y in parent.children if y.elems[1][0] is not None])
         elements.sort(key=lambda elem: elem[0])
-        return elements
+        nodes = len(parent.children) + 1
+        parent.del_from_node(0)
+        parent.del_from_node(1)
+        parent.add_to_node(elements[1])
+        if nodes >= 5:
+            # The parent can stay a 3-node
+            parent.add_to_node(elements[3])
+            parent.children = [Node(elements[0]), Node(elements[2]), Node(elements[4])]
+            if nodes == 6:
+                parent.children[2].add_to_node(elements[5])
+        elif nodes >= 3:
+            # The group has all the keys it needs
+            parent.children = [Node(elements[0]), Node(elements[2])]
+            if nodes == 4:
+                parent.children[1].add_to_node(elements[3])
+        else:
+            # Group needs to borrow a key from above
+            pass
 
     def _transfer(self, parent, child):
         pass
