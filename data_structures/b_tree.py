@@ -7,9 +7,7 @@ class Node(object):
         if key is not None:
             self.count = 1
         self.elems = [(key, val), (None, None), (None, None), ]
-        self.left = None
-        self.mid = None
-        self.right = None
+        self.children = [None] * 3
 
     def __repr__(self):
         """For printing out the heap and its nodes
@@ -47,10 +45,10 @@ class Node(object):
 
     def is_legal(self):
         """Determines if an internal node is legal"""
-        if self.left is not None and self.mid is not None:
-            if self.count == 1 and self.right is None:
+        if self.children[0] is not None and self.children[1] is not None:
+            if self.count == 1 and self.children[2] is None:
                 return True
-            elif self.count == 2 and self.right is not None:
+            elif self.count == 2 and self.children[2] is not None:
                 return True
         return False
 
@@ -73,7 +71,7 @@ class BTree(object):
         if not node.left:
             raise MissingError
         else:
-            pass
+            return self.search(node.children[idx], key)
 
     # def search(self, node, key):
     #     """Searches the tree for a specific key and returns
