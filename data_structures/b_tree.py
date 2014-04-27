@@ -65,13 +65,33 @@ class BTree(object):
         # The index of the node in which the key is found
         idx = 0
         while idx <= node.count - 1 and key > node.elems[idx][0]:
+            # Look to the next key in the node
             idx += 1
         if idx <= node.count - 1 and key == node.elems[idx][0]:
+            # Found the key in the node
             return node, idx
         if not node.children[0]:
             raise MissingError
         else:
+            # Look to the appropriate child
             return self.search(node.children[idx], key)
+
+    def insert(self, node, key, val):
+        """Inserts a key-value pair into the tree"""
+        r = self.root
+        if node.count == 3:
+            new = Node()
+            self.root = new
+            new.left = node
+            self._split_child(new, node, 0)
+            self._insert_nonfull(new, key)
+        else:
+            self._insert_nonfull(node, key)
+
+    def _split_child(self, parent, child, idx):
+        pass
+
+    def _insert_nonfull(self, node, key)
 
     # def search(self, node, key):
     #     """Searches the tree for a specific key and returns
@@ -91,16 +111,6 @@ class BTree(object):
     #         return self.search(node.right, key)
     #     else:
     #         return self.search(node.mid, key)
-
-    # def insert(self, node, key, val):
-    #     """Insert s a key-value pair into the tree
-    #     No-op if the key already exists"""
-    #     if not self.root.left:
-    #         parent = Node()
-    #         new = Node(key, val)
-    #         if key < node.elems[0][0]:
-    #             parent.left, parent.mid = new, node
-
 
     # def insert(self, node, key, val):
     #     """Inserts a key-value pair into the tree
