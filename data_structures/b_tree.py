@@ -7,7 +7,9 @@ class Node(object):
         if key is not None:
             self.count = 1
         self.elems = [(key, val), (None, None), (None, None), ]
-        self.children = []
+        self.left = None
+        self.mid = None
+        self.right = None
 
     def __repr__(self):
         """For printing out the heap and its nodes
@@ -44,10 +46,12 @@ class Node(object):
             )
 
     def is_legal(self):
-        if self.count == 1 and len(self.children) == 2:
-            return True
-        elif self.count == 2 and len(self.children) == 3:
-            return True
+        """Determines if an internal node is legal"""
+        if self.left is not None and self.mid is not None:
+            if self.count == 1 and self.right is None:
+                return True
+            elif self.count == 2 and self.right is not None:
+                return True
         return False
 
 
@@ -58,61 +62,86 @@ class BTree(object):
 
     def search(self, node, key):
         """Searches the tree for a specific key and returns
-        the associated value if it is found
+        the associated value if if is found
         If it is not found, raises a custom error"""
-        if node.has(key):
-            if node.elems[0][0] == key:
-                return node.elems[0][1]
-            return node.elems[1][1]
-        elif not node.children:
-            # The search has reached a leaf node w/o finding a match
+        # The index of the node in which the key is found
+        idx = 0
+        while idx <= node.count - 1 and key > node.elems[idx][0]:
+            idx += 1
+        if idx <= node.count - 1 and key == node.elems[idx][0]:
+            return node, idx
+        if not node.left:
             raise MissingError
-        elif key < node.elems[0][0]:
-            return self.search(node.children[0], key)
-        # Check if a middle child exists
-        elif (node.count == 2 and key < node.elems[1][0]) or node.count == 1:
-            return self.search(node.children[1], key)
         else:
-            # A third child exists
-            return self.search(node.children[2], key)
+            pass
+
+    # def search(self, node, key):
+    #     """Searches the tree for a specific key and returns
+    #     the associated value if it is found
+    #     If it is not found, raises a custom error"""
+    #     if node.has(key):
+    #         if node.elems[0][0] == key:
+    #             return node.elems[0][1]
+    #         return node.elems[1][1]
+    #     elif not node.left:
+    #         # The search has reached a leaf node w/o finding a match
+    #         raise MissingError
+    #     elif key < node.elems[0][0]:
+    #         return self.search(node.left, key)
+    #     # Check if a 3-node
+    #     elif node.count == 2 and key > node.elems[1][0]:
+    #         return self.search(node.right, key)
+    #     else:
+    #         return self.search(node.mid, key)
 
     def insert(self, node, key, val):
-        """Inserts a key-value pair into the tree
+        """Insert s a key-value pair into the tree
         No-op if the key already exists"""
-        self.stack.push(node)
-        if node.has(key):
-            self.stack = Stack()
-            return
-        elif not node.children:
-            node.add_to_node(key, val)
-            if node.count == 3:
-                self._split(node)
-            self.stack = Stack()
-            return
-        elif key < node.elems[0][0]:
-            return self.insert(node.children[0], key, val)
-        elif (node.count == 2 and key < node.elems[1][0]) or node.count == 1:
-            return self.insert(node.children[1], key, val)
-        else:
-            return self.insert(node.children[2], key, val)
-
-    def _split(self, node):
-        new1, mid_elem, new2 = node.split_node()
-        self.stack.pop()
-        if self.stack.head:
-            parent = self.stack.head.val
-            parent.children.remove(node)
-        else:
+        if not self.root.left:
             parent = Node()
-            self.root = parent
-        parent.add_to_node(mid_elem[0], mid_elem[1])
-        parent.children.extend([new1, new2])
-        parent.children.sort(key=lambda nod: nod.elems[0][0])
-        if node.children:
-            new1.children, new2.children = \
-                node.children[:2], node.children[-2:]
-        if parent.count == 3:
-            self._split(parent)
+            new = Node(key, val)
+            if key < node.elems[0][0]:
+                parent.left, parent.mid = new, node
+
+
+    # def insert(self, node, key, val):
+    #     """Inserts a key-value pair into the tree
+    #     No-op if the key already exists"""
+    #     self.stack.push(node)
+    #     if node.has(key):
+    #         self.stack = Stack()
+    #         return
+    #     elif not node.first:
+    #         node.add_to_node(key, val)
+    #         if node.count == 3:
+    #             self._split(node)
+    #         self.stack = Stack()
+    #         return
+    #     elif key < node.elems[0][0]:
+    #         return self.insert(node.first, key, val)
+    #     # Check if a 3-node
+    #     elif node.count == 2 and key > node.elems[1][0]:
+    #         return self.insert(node.third, key, val)
+    #     else:
+    #         return self.insert(node.second, key, val)
+
+    # def _split(self, node):
+    #     new1, mid_elem, new2 = node.split_node()
+    #     self.stack.pop()
+    #     if self.stack.head:
+    #         parent = self.stack.head.val
+    #         parent.children.remove(node)
+    #     else:
+    #         parent = Node()
+    #         self.root = parent
+    #     parent.add_to_node(mid_elem[0], mid_elem[1])
+    #     parent.children.extend([new1, new2])
+    #     parent.children.sort(key=lambda nod: nod.elems[0][0])
+    #     if node.children:
+    #         new1.children, new2.children = \
+    #             node.children[:2], node.children[-2:]
+    #     if parent.count == 3:
+    #         self._split(parent)
 
     def delete(self, node, key):
         self.stack.push(node)
