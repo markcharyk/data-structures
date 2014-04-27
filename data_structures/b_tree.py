@@ -68,7 +68,7 @@ class BTree(object):
             idx += 1
         if idx <= node.count - 1 and key == node.elems[idx][0]:
             return node, idx
-        if not node.left:
+        if not node.children[0]:
             raise MissingError
         else:
             return self.search(node.children[idx], key)
@@ -92,14 +92,14 @@ class BTree(object):
     #     else:
     #         return self.search(node.mid, key)
 
-    def insert(self, node, key, val):
-        """Insert s a key-value pair into the tree
-        No-op if the key already exists"""
-        if not self.root.left:
-            parent = Node()
-            new = Node(key, val)
-            if key < node.elems[0][0]:
-                parent.left, parent.mid = new, node
+    # def insert(self, node, key, val):
+    #     """Insert s a key-value pair into the tree
+    #     No-op if the key already exists"""
+    #     if not self.root.left:
+    #         parent = Node()
+    #         new = Node(key, val)
+    #         if key < node.elems[0][0]:
+    #             parent.left, parent.mid = new, node
 
 
     # def insert(self, node, key, val):
@@ -141,80 +141,61 @@ class BTree(object):
     #     if parent.count == 3:
     #         self._split(parent)
 
-    def delete(self, node, key):
-        self.stack.push(node)
-        if node.has(key) and not node.children:
-            # Node is a leaf
-            if key == node.elems[0][0]:
-                node.del_from_node(0)
-            else:
-                node.del_from_node(1)
-            if not node.count:
-                # Node is newly empty
-                self._borrow(node, self.stack.head.next.val)
-                self.stack.head.next.val.children = [x for x in self.stack.head.next.val.children if x.elems[0][0] is not None]
-            return
-        elif node.has(key):
-            if key == node.elems[0][0]:
-                node.elems[0] = self._get_pred(node, key)
-            else:
-                node.elems[1] = self._get_pred(node, key)
+    # def delete(self, node, key):
+    #     self.stack.push(node)
+    #     if node.has(key) and not node.children:
+    #         # Node is a leaf
+    #         if key == node.elems[0][0]:
+    #             node.del_from_node(0)
+    #         else:
+    #             node.del_from_node(1)
+    #         if not node.count:
+    #             # Node is newly empty
+    #             self._borrow(node, self.stack.head.next.val)
+    #             self.stack.head.next.val.children = [x for x in self.stack.head.next.val.children if x.elems[0][0] is not None]
+    #         return
+    #     elif node.has(key):
+    #         if key == node.elems[0][0]:
+    #             node.elems[0] = self._get_pred(node, key)
+    #         else:
+    #             node.elems[1] = self._get_pred(node, key)
 
-    def _get_pred(self, node, key):
-        if node.elems[0][0] == key:
-            next_node = node.children[0]
-        else:
-            next_node = node.children[1]
-        while next_node.children:
-            self.stack.push(next_node)
-            next_node = next_node.children[-1]
-        result = next_node.elems[next_node.count - 1]
-        self.delete(next_node, next_node.elems[next_node.count - 1][0])
-        return result
+    # def _get_pred(self, node, key):
+    #     if node.elems[0][0] == key:
+    #         next_node = node.children[0]
+    #     else:
+    #         next_node = node.children[1]
+    #     while next_node.children:
+    #         self.stack.push(next_node)
+    #         next_node = next_node.children[-1]
+    #     result = next_node.elems[next_node.count - 1]
+    #     self.delete(next_node, next_node.elems[next_node.count - 1][0])
+    #     return result
 
-    def _borrow(self, node, parent):
-        elements = [x for x in parent.elems if x[0] is not None]
-        elements.extend([y.elems[0] for y in parent.children if y.elems[0][0] is not None])
-        elements.extend([y.elems[1] for y in parent.children if y.elems[1][0] is not None])
-        elements.sort(key=lambda elem: elem[0])
-        parent.del_from_node(0)
-        parent.del_from_node(1)
-        if len(elements) >= 5:
-            # The parent can stay a 3-node
-            parent.add_to_node(elements[1][0], elements[1][1])
-            parent.add_to_node(elements[3][0], elements[3][1])
-            parent.children = [Node(elements[0]), Node(elements[2]), Node(elements[4])]
-            if len(elements) == 6:
-                parent.children[2].add_to_node(elements[5][0], elements[5][1])
-        elif len(elements) >= 3:
-            # The group has all the keys it needs
-            parent.add_to_node(elements[1][0], elements[1][1])
-            parent.children = [Node(elements[0]), Node(elements[2])]
-            if len(elements) == 4:
-                parent.children[1].add_to_node(elements[3][0], elements[3][1])
-        else:
-            # Group needs to get a key from above
-            pass
-
-    def _transfer(self, parent, child):
-        pass
-
-    def _fuse(self, node1, node2):
-        pass
+    # def _borrow(self, node, parent):
+    #     elements = [x for x in parent.elems if x[0] is not None]
+    #     elements.extend([y.elems[0] for y in parent.children if y.elems[0][0] is not None])
+    #     elements.extend([y.elems[1] for y in parent.children if y.elems[1][0] is not None])
+    #     elements.sort(key=lambda elem: elem[0])
+    #     parent.del_from_node(0)
+    #     parent.del_from_node(1)
+    #     if len(elements) >= 5:
+    #         # The parent can stay a 3-node
+    #         parent.add_to_node(elements[1][0], elements[1][1])
+    #         parent.add_to_node(elements[3][0], elements[3][1])
+    #         parent.children = [Node(elements[0]), Node(elements[2]), Node(elements[4])]
+    #         if len(elements) == 6:
+    #             parent.children[2].add_to_node(elements[5][0], elements[5][1])
+    #     elif len(elements) >= 3:
+    #         # The group has all the keys it needs
+    #         parent.add_to_node(elements[1][0], elements[1][1])
+    #         parent.children = [Node(elements[0]), Node(elements[2])]
+    #         if len(elements) == 4:
+    #             parent.children[1].add_to_node(elements[3][0], elements[3][1])
+    #     else:
+    #         # Group needs to get a key from above
+    #         pass
 
 
 class MissingError(BaseException):
     pass
-
-
-def set_up(tree):
-    tree.insert(tree.root, 1, 1)
-    tree.insert(tree.root, 2, 2)
-    tree.insert(tree.root, 3, 3)
-    tree.insert(tree.root, 4, 4)
-    tree.insert(tree.root, 5, 5)
-    tree.insert(tree.root, 6, 6)
-    tree.insert(tree.root, 7, 7)
-    tree.insert(tree.root, 8, 8)
-    tree.insert(tree.root, 9, 9)
-    tree.insert(tree.root, 10, 10)
