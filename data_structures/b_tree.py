@@ -92,9 +92,20 @@ class BTree(object):
 
     def _split_child(self, parent, child, idx):
         new = Node()
-        new.count = self.degree
+        new.count = self.degree - 1
         for i in xrange(new.count):
-            new.elems[i] = child.elems[i + self.degree + 1]
+            new.elems[i] = child.elems[i + self.degree]
+        if child.children[0]:
+            for i in xrange(self.degree):
+                new.children[i] = child.children[i + self.degree]
+        child.count = self.degree - 1
+        for i in xrange(parent.count+1, idx+1, -1):
+            parent.children[i+1] = parent.children[i]
+        parent.children[idx+1] = new
+        for i in xrange(parent.count, idx, -1):
+            parent.elems[i+1] = parent.elems[i]
+        parent.elems[idx] = child.elems[self.degree]
+        parent.count += 1
 
     def _insert_nonfull(self, node, key):
         pass
