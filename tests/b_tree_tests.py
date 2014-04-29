@@ -1,5 +1,5 @@
 import unittest
-from data_structures.b_tree import Node, BTree, MissingError
+from data_structures.b_tree import Node, BTree, MissingError, InvalidDegreeError
 
 
 class TestAddToNode(unittest.TestCase):
@@ -126,6 +126,20 @@ class TestSplitNode(unittest.TestCase):
         self.assertIsNone(c.elems[1][1])
         self.assertEqual(c.count, 1)
         self.assertEqual(b, (5, 'Five'))
+
+
+class TestInitTree(unittest.TestCase):
+    def test_degree_two(self):
+        b = BTree()
+        self.assertIsNone(b.root.elems[0][0])
+
+    def test_degree_one(self):
+        with self.assertRaises(InvalidDegreeError):
+            BTree(1)
+
+    def test_degree_four(self):
+        b = BTree(4)
+        self.assertIsNone(b.root.elems[0][0])
 
 
 class TestSearchTree(unittest.TestCase):

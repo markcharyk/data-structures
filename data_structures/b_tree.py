@@ -54,9 +54,12 @@ class Node(object):
 
 
 class BTree(object):
-    def __init__(self):
+    def __init__(self, degree=2):
         self.root = Node()
         self.stack = Stack()
+        if degree < 2:
+            raise InvalidDegreeError
+        self.degree = degree
 
     def search(self, node, key):
         """Searches the tree for a specific key and returns
@@ -78,8 +81,7 @@ class BTree(object):
 
     def insert(self, node, key, val):
         """Inserts a key-value pair into the tree"""
-        r = self.root
-        if node.count == 3:
+        if node.count == 2 * self.degree - 1:
             new = Node()
             self.root = new
             new.left = node
@@ -89,9 +91,13 @@ class BTree(object):
             self._insert_nonfull(node, key)
 
     def _split_child(self, parent, child, idx):
-        pass
+        new = Node()
+        new.count = self.degree
+        for i in xrange(new.count):
+            new.elems[i] = child.elems[i + self.degree + 1]
 
-    def _insert_nonfull(self, node, key)
+    def _insert_nonfull(self, node, key):
+        pass
 
     # def search(self, node, key):
     #     """Searches the tree for a specific key and returns
@@ -205,6 +211,10 @@ class BTree(object):
     #     else:
     #         # Group needs to get a key from above
     #         pass
+
+
+class InvalidDegreeError(BaseException):
+    pass
 
 
 class MissingError(BaseException):
