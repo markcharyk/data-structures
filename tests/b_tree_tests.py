@@ -213,6 +213,21 @@ class TestSplitChild(unittest.TestCase):
         self.assertEqual(self.b.root.children[1].elems[0][1], 'Three')
         self.assertEqual(self.b.root.children[2].elems[0][1], 'Nine')
 
+    def test_with_children(self):
+        m, n, o, p, q, r = Node(), Node(), Node(), Node(), Node(), Node()
+        m.add_to_node(2, 'Two')
+        n.add_to_node(7, 'Seven')
+        self.b.root.children[0], self.b.root.children[1] = m, n
+        o.add_to_node(1, 'One')
+        p.add_to_node(3, 'Three')
+        self.b.root.children[0].children[0], self.b.root.children[0].children[1] = o, p
+        q.add_to_node(5, 'Five')
+        r.add_to_node(8, 'Eight')
+        r.add_to_node(9, 'Nine')
+        r.add_to_node(10, 'Ten')
+        self.b.root.children[1].children[0], self.b.root.children[1].children[1] = q, r
+        self.b._split_child(self.b.root.children[1], self.b.root.children[1].children[1])
+
 
 # class TestInsertTree(unittest.TestCase):
 #     def setUp(self):
