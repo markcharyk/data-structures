@@ -7,7 +7,7 @@ class Node(object):
         if key is not None:
             self.count = 1
         self.elems = [(key, val), (None, None), (None, None), ]
-        self.children = [None] * 3
+        self.children = [None] * 4
 
     def __repr__(self):
         """For printing out the heap and its nodes
@@ -52,6 +52,12 @@ class Node(object):
                 return True
         return False
 
+    def sort_children(self):
+        self.children.sort(key=lambda nod: nod.elems[0][0] if nod else None)
+        while self.children[0] is None:
+            self.children.pop(0)
+            self.children.append(None)
+
 
 class BTree(object):
     def __init__(self, degree=2):
@@ -84,28 +90,27 @@ class BTree(object):
         if node.count == 2 * self.degree - 1:
             new = Node()
             self.root = new
-            new.left = node
+            new.children[0] = node
             self._split_child(new, node, 0)
             self._insert_nonfull(new, key)
         else:
             self._insert_nonfull(node, key)
 
-    def _split_child(self, parent, child, idx):
+    def _split_child(self, parent, child):
         new = Node()
-        new.count = self.degree - 1
-        for i in xrange(new.count):
-            new.elems[i] = child.elems[i + self.degree]
+        for i in xrange(self.degree-1):
+            new.add_to_node(*child.elems[i + self.degree])
+            child.del_from_node(i+self.degree)
+        parent.add_to_node(*child.elems[self.degree-1])
+        child.del_from_node(self.degree-1)
         if child.children[0]:
             for i in xrange(self.degree):
                 new.children[i] = child.children[i + self.degree]
-        child.count = self.degree - 1
-        for i in xrange(parent.count+1, idx+1, -1):
-            parent.children[i+1] = parent.children[i]
-        parent.children[idx+1] = new
-        for i in xrange(parent.count, idx, -1):
-            parent.elems[i+1] = parent.elems[i]
-        parent.elems[idx] = child.elems[self.degree]
-        parent.count += 1
+            child.sort_children
+        for i in xrange(parent.count+1, 0, -1):
+            parent.children[i] = parent.children[i-1]
+        parent.children[0] = new
+        parent.sort_children()
 
     def _insert_nonfull(self, node, key):
         pass
