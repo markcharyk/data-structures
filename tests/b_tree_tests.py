@@ -229,8 +229,8 @@ class TestSplitChild(unittest.TestCase):
         s.add_to_node(11, 'Eleven')
         self.b.root.children[1].children[0], self.b.root.children[1].children[1] = q, r
         self.b.root.children[1].children[2] = s
+        self.b.stack.push(self.b.root)
         self.b._split_child(self.b.root.children[1], self.b.root.children[1].children[2])
-        self.b._split_child(self.b.root, self.b.root.children[1])
         self.assertEqual(self.b.root.elems[1][1], 'Eight')
         self.assertIsNone(self.b.root.elems[2][1])
         self.assertEqual(self.b.root.children[1].elems[0][1], 'Six')

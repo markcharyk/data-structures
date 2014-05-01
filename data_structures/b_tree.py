@@ -113,9 +113,9 @@ class BTree(object):
             self.root = new
             new.children[0] = node
             self._split_child(new, node, 0)
-            self._insert_nonfull(new, key)
+            self._insert_nonfull(new, key, val)
         else:
-            self._insert_nonfull(node, key)
+            self._insert_nonfull(node, key, val)
 
     def _split_child(self, parent, child):
         new = Node()
@@ -131,9 +131,21 @@ class BTree(object):
             child.sort_children
         parent.children[3] = new
         parent.sort_children()
+        if parent.count == 3:
+            self._split_child(self.stack.pop().val, parent)
 
-    def _insert_nonfull(self, node, key):
-        pass
+    def _insert_nonfull(self, node, key, val):
+        if not node.children[0]:
+            node.add_to_node(key, val)
+            if node.count == 3:
+                self._split_child(self.stack.pop().val, node)
+            return
+        self.stack.push(node)
+        idx = node.count - 1
+        while idx >= 0 and key < node.elems[idx][0]:
+            idx -= 1
+        idx += 1
+
 
     # def search(self, node, key):
     #     """Searches the tree for a specific key and returns
