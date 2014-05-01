@@ -107,9 +107,7 @@ class BTree(object):
             for i in xrange(self.degree):
                 new.children[i] = child.children[i + self.degree]
             child.sort_children
-        for i in xrange(parent.count+1, 0, -1):
-            parent.children[i] = parent.children[i-1]
-        parent.children[0] = new
+        parent.children[3] = new
         parent.sort_children()
 
     def _insert_nonfull(self, node, key):

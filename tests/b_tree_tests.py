@@ -214,19 +214,23 @@ class TestSplitChild(unittest.TestCase):
         self.assertEqual(self.b.root.children[2].elems[0][1], 'Nine')
 
     def test_with_children(self):
-        m, n, o, p, q, r = Node(), Node(), Node(), Node(), Node(), Node()
+        m, n, o, p, q, r, s = Node(), Node(), Node(), Node(), Node(), Node(), Node()
         m.add_to_node(2, 'Two')
-        n.add_to_node(7, 'Seven')
+        n.add_to_node(6, 'Six')
+        n.add_to_node(8, 'Eight')
         self.b.root.children[0], self.b.root.children[1] = m, n
         o.add_to_node(1, 'One')
         p.add_to_node(3, 'Three')
         self.b.root.children[0].children[0], self.b.root.children[0].children[1] = o, p
         q.add_to_node(5, 'Five')
-        r.add_to_node(8, 'Eight')
-        r.add_to_node(9, 'Nine')
-        r.add_to_node(10, 'Ten')
+        r.add_to_node(7, 'Seven')
+        s.add_to_node(9, 'Nine')
+        s.add_to_node(10, 'Ten')
+        s.add_to_node(11, 'Eleven')
         self.b.root.children[1].children[0], self.b.root.children[1].children[1] = q, r
-        self.b._split_child(self.b.root.children[1], self.b.root.children[1].children[1])
+        self.b.root.children[1].children[2] = s
+        self.b._split_child(self.b.root.children[1], self.b.root.children[1].children[2])
+        self.b._split_child(self.b.root, self.b.root.children[1])
 
 
 # class TestInsertTree(unittest.TestCase):
