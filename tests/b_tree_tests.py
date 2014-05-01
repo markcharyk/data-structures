@@ -229,9 +229,20 @@ class TestSplitChild(unittest.TestCase):
         s.add_to_node(11, 'Eleven')
         self.b.root.children[1].children[0], self.b.root.children[1].children[1] = q, r
         self.b.root.children[1].children[2] = s
-        print self.b
         self.b._split_child(self.b.root.children[1], self.b.root.children[1].children[2])
         self.b._split_child(self.b.root, self.b.root.children[1])
+        self.assertEqual(self.b.root.elems[1][1], 'Eight')
+        self.assertIsNone(self.b.root.elems[2][1])
+        self.assertEqual(self.b.root.children[1].elems[0][1], 'Six')
+        self.assertIsNone(self.b.root.children[1].elems[1][1])
+        self.assertEqual(self.b.root.children[2].elems[0][1], 'Ten')
+        self.assertIsNone(self.b.root.children[2].elems[1][1])
+        self.assertEqual(self.b.root.children[1].children[0].elems[0][1], 'Five')
+        self.assertEqual(self.b.root.children[1].children[1].elems[0][1], 'Seven')
+        self.assertIsNone(self.b.root.children[1].children[2])
+        self.assertEqual(self.b.root.children[2].children[0].elems[0][1], 'Nine')
+        self.assertEqual(self.b.root.chidlren[2].children[1].elems[0][1], 'Eleven')
+        self.assertIsNone(self.b.root.children[2].children[2])
 
 
 # class TestInsertTree(unittest.TestCase):

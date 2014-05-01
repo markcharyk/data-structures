@@ -119,8 +119,9 @@ class BTree(object):
 
     def _split_child(self, parent, child):
         new = Node()
+        import pdb; pdb.set_trace()
         for i in xrange(self.degree-1):
-            new.add_to_node(*child.elems[i + self.degree])
+            new.add_to_node(*child.elems[i+self.degree])
             child.del_from_node(i+self.degree)
         parent.add_to_node(*child.elems[self.degree-1])
         child.del_from_node(self.degree-1)
