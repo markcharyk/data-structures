@@ -10,7 +10,7 @@ class Node(object):
         self.children = [None] * 4
 
     def __repr__(self):
-        """For printing out the heap and its nodes
+        """For printing out the nodes
         It's here to save me typing during debugging"""
         result = "["
         for i in range(3):
@@ -66,6 +66,27 @@ class BTree(object):
         if degree < 2:
             raise InvalidDegreeError
         self.degree = degree
+
+    def __repr__(self):
+        """For printing out the tree and its nodes
+        It's here to save me typing during debugging"""
+        result = ''
+        for i in self._bft():
+            result += i
+        return result
+
+    def _bft(self):
+        import queue
+        keeper = queue.Queue()
+        keeper.enqueue(self.root)
+        while keeper.size() > 0:
+            temp = keeper.dequeue()
+            yield str(temp)
+            if temp is not '\n' and temp.children[0]:
+                keeper.enqueue('\n')
+                for nod in temp.children:
+                    if nod is not None:
+                        keeper.enqueue(nod)
 
     def search(self, node, key):
         """Searches the tree for a specific key and returns
