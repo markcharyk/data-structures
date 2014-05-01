@@ -241,7 +241,7 @@ class TestSplitChild(unittest.TestCase):
         self.assertEqual(self.b.root.children[1].children[1].elems[0][1], 'Seven')
         self.assertIsNone(self.b.root.children[1].children[2])
         self.assertEqual(self.b.root.children[2].children[0].elems[0][1], 'Nine')
-        self.assertEqual(self.b.root.chidlren[2].children[1].elems[0][1], 'Eleven')
+        self.assertEqual(self.b.root.children[2].children[1].elems[0][1], 'Eleven')
         self.assertIsNone(self.b.root.children[2].children[2])
 
 
