@@ -133,7 +133,7 @@ class BTree(object):
             if node.count == 2 * self.degree - 1:
                 if node is self.root:
                     new = Node()
-                    new.children[0] = self.root
+                    new.children[0], self.root = self.root, new
                     self.stack.push(new)
                 self._split_child(self.stack.pop().val, node)
         else:
