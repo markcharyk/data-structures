@@ -88,9 +88,14 @@ class BTree(object):
                     if nod is not None:
                         keeper.enqueue(nod)
 
-    def search(self, node, key):
-        """Searches the tree for a specific key and returns
-        the associated value if if is found
+    def search(self, key):
+        """Returns the value of the searched-for key"""
+        nod, idx = self._recursive_search(self.root, key)
+        return nod.elems[idx][1]
+
+    def _recursive_search(self, node, key):
+        """Searches the subtree for a specific key and returns
+        where to find it if it is found
         If it is not found, raises a custom error"""
         # The index of the node in which the key is found
         idx = 0
@@ -104,11 +109,11 @@ class BTree(object):
             raise MissingError
         else:
             # Look to the appropriate child
-            return self.search(node.children[idx], key)
+            return self._recursive_search(node.children[idx], key)
 
     def insert(self, key, val):
         """Inserts a key-value pair into the tree"""
-        self._recursively_insert(self.root, key, val)
+        self._recursive_insert(self.root, key, val)
 
     def _split_child(self, parent, child):
         new = Node()
@@ -127,7 +132,7 @@ class BTree(object):
         if parent.count == 2 * self.degree - 1:
             self._split_child(self.stack.pop().val, parent)
 
-    def _recursively_insert(self, node, key, val):
+    def _recursive_insert(self, node, key, val):
         if not node.children[0]:
             node.add_to_node(key, val)
             if node.count == 2 * self.degree - 1:
@@ -141,7 +146,7 @@ class BTree(object):
             idx = node.count - 1
             while idx >= 0 and key < node.elems[idx][0]:
                 idx -= 1
-            self._recursively_insert(node.children[idx+1], key, val)
+            self._recursive_insert(node.children[idx+1], key, val)
 
 
     # def search(self, node, key):

@@ -163,20 +163,35 @@ class TestSearchTree(unittest.TestCase):
         self.b = BTree()
         self.b.root = four
 
+    def test_at_root_recurs(self):
+        self.assertEqual(self.b._recursive_search(self.b.root, 4), (self.b.root, 0))
+
     def test_at_root(self):
-        self.assertEqual(self.b.search(self.b.root, 4), (self.b.root, 0))
+        self.assertEqual(self.b.search(4), 'Four')
+
+    def test_in_middle_recurs(self):
+        self.assertEqual(self.b._recursive_search(self.b.root, 2), (self.b.root.children[0], 0))
+        self.assertEqual(self.b._recursive_search(self.b.root, 8), (self.b.root.children[1], 1))
 
     def test_in_middle(self):
-        self.assertEqual(self.b.search(self.b.root, 2), (self.b.root.children[0], 0))
-        self.assertEqual(self.b.search(self.b.root, 8), (self.b.root.children[1], 1))
+        self.assertEqual(self.b.search(2), 'Two')
+        self.assertEqual(self.b.search(8), 'Eight')
+
+    def test_at_leaf_recurs(self):
+        self.assertEqual(self.b._recursive_search(self.b.root, 1), (self.b.root.children[0].children[0], 0))
+        self.assertEqual(self.b._recursive_search(self.b.root, 9), (self.b.root.children[1].children[2], 0))
 
     def test_at_leaf(self):
-        self.assertEqual(self.b.search(self.b.root, 1), (self.b.root.children[0].children[0], 0))
-        self.assertEqual(self.b.search(self.b.root, 9), (self.b.root.children[1].children[2], 0))
+        self.assertEqual(self.b.search(1), 'One')
+        self.assertEqual(self.b.search(9), 'Nine')
+
+    def test_not_in_tree_recurs(self):
+        with self.assertRaises(MissingError):
+            self.b._recursive_search(self.b.root, 10)
 
     def test_not_in_tree(self):
         with self.assertRaises(MissingError):
-            self.b.search(self.b.root, 10)
+            self.b.search(10)
 
 
 class TestSplitChild(unittest.TestCase):
