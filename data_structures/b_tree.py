@@ -106,16 +106,9 @@ class BTree(object):
             # Look to the appropriate child
             return self.search(node.children[idx], key)
 
-    def insert(self, node, key, val):
+    def insert(self, key, val):
         """Inserts a key-value pair into the tree"""
-        if node.count == 2 * self.degree - 1:
-            new = Node()
-            self.root = new
-            new.children[0] = node
-            self._split_child(new, node, 0)
-            self._insert_nonfull(new, key, val)
-        else:
-            self._insert_nonfull(node, key, val)
+        self._recursively_insert(self.root, key, val)
 
     def _split_child(self, parent, child):
         new = Node()
@@ -129,22 +122,26 @@ class BTree(object):
                 new.children[i], child.children[i+self.degree] = \
                     child.children[i+self.degree], None
             child.sort_children
-        parent.children[3] = new
+        parent.children[2*self.degree-1] = new
         parent.sort_children()
-        if parent.count == 3:
+        if parent.count == 2 * self.degree - 1:
             self._split_child(self.stack.pop().val, parent)
 
-    def _insert_nonfull(self, node, key, val):
+    def _recursively_insert(self, node, key, val):
         if not node.children[0]:
             node.add_to_node(key, val)
-            if node.count == 3:
+            if node.count == 2 * self.degree - 1:
+                if node is self.root:
+                    new = Node()
+                    new.children[0] = self.root
+                    self.stack.push(new)
                 self._split_child(self.stack.pop().val, node)
-            return
-        self.stack.push(node)
-        idx = node.count - 1
-        while idx >= 0 and key < node.elems[idx][0]:
-            idx -= 1
-        idx += 1
+        else:
+            self.stack.push(node)
+            idx = node.count - 1
+            while idx >= 0 and key < node.elems[idx][0]:
+                idx -= 1
+            self._recursively_insert(node.children[idx+1], key, val)
 
 
     # def search(self, node, key):
