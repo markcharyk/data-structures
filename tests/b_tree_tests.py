@@ -369,5 +369,17 @@ class TestInsertTree(unittest.TestCase):
 #         self.assertIsNone(self.root.right)
 
 
+class TestMoveKey(unittest.TestCase):
+    pass
+
+
+class TestMergeNode(unittest.TestCase):
+    pass
+
+
+class TestGetPred(unittest.TestCase):
+    pass
+
+
 if __name__ == '__main__':
     unittest.main()
