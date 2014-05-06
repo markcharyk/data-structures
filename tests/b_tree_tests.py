@@ -370,7 +370,20 @@ class TestInsertTree(unittest.TestCase):
 
 
 class TestMoveKey(unittest.TestCase):
-    pass
+    def setUp(self):
+        self.b = BTree()
+        m, n, o = Node(), Node(), Node()
+        m.add_to_node(4, 'Four')
+        m.add_to_node(5, 'Five')
+        n.add_to_node(6, 'Six')
+        self.b.root, self.b.root.children = m, [o, n, None, None]
+
+    def test_move_key(self):
+        self._move_key(5, m, n)
+        self.assertEqual(self.b.root.elems[0][1], 'Four')
+        self.assertIsNone(self.b.root.elems[1][1])
+        self.assertEqual(self.b.root.children[1].elems[0][1], 'Five')
+        self.assertEqual(self.b.root.children[1].elems[1][1], 'Six')
 
 
 class TestMergeNode(unittest.TestCase):
