@@ -2,23 +2,25 @@ from data_structures.stack import Stack
 
 
 class Node(object):
-    def __init__(self, key=None, val=None):
+    def __init__(self, capacity=3, key=None, val=None):
         self.count = 0
         if key is not None:
             self.count = 1
-        self.elems = [(key, val), (None, None), (None, None), ]
-        self.children = [None] * 4
+        self.elems = [(key, val)]
+        for i in xrange(capacity-1):
+            self.elems.append((None, None))
+        self.children = [None] * (capacity+1)
 
     def __repr__(self):
         """For printing out the nodes
         It's here to save me typing during debugging"""
         result = "["
-        for i in range(3):
+        for i in range(len(self.elems)):
             result += '%s, ' % str(self.elems[i])
         return '%s]' % result
 
     def add_to_node(self, key, val):
-        for i in range(3):
+        for i in range(len(self.elems)):
             if self.elems[i][0] is None or self.elems[i][0] > key:
                 self.elems.pop()
                 self.elems.insert(i, (key, val))
@@ -31,26 +33,26 @@ class Node(object):
         self.elems.append((None, None))
 
     def has(self, key):
-        for i in range(3):
+        for i in range(len(self.elems)):
             if self.elems[i][0] == key:
                 return True
         return False
 
-    def split_node(self):
-        return (
-            Node(self.elems[0][0], self.elems[0][1]),
-            self.elems[1],
-            Node(self.elems[2][0], self.elems[2][1])
-            )
+    # def split_node(self):
+    #     return (
+    #         Node(self.elems[0][0], self.elems[0][1]),
+    #         self.elems[1],
+    #         Node(self.elems[2][0], self.elems[2][1])
+    #         )
 
-    def is_legal(self):
-        """Determines if an internal node is legal"""
-        if self.children[0] is not None and self.children[1] is not None:
-            if self.count == 1 and self.children[2] is None:
-                return True
-            elif self.count == 2 and self.children[2] is not None:
-                return True
-        return False
+    # def is_legal(self):
+    #     """Determines if an internal node is legal"""
+    #     if self.children[0] is not None and self.children[1] is not None:
+    #         if self.count == 1 and self.children[2] is None:
+    #             return True
+    #         elif self.count == 2 and self.children[2] is not None:
+    #             return True
+    #     return False
 
     def sort_children(self):
         self.children.sort(key=lambda nod: nod.elems[0][0] if nod else None)
