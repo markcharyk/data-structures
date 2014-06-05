@@ -108,26 +108,6 @@ class TestHas(unittest.TestCase):
         self.assertFalse(self.n.has(5))
 
 
-class TestSplitNode(unittest.TestCase):
-    def setUp(self):
-        self.n = Node()
-        self.n.add_to_node(4, 'Four')
-        self.n.add_to_node(5, 'Five')
-        self.n.add_to_node(6, 'Six')
-
-    def test_split(self):
-        a, b, c = self.n.split_node()
-        self.assertEqual(a.elems[0][0], 4)
-        self.assertEqual(a.elems[0][1], 'Four')
-        self.assertIsNone(a.elems[1][1])
-        self.assertEqual(a.count, 1)
-        self.assertEqual(c.elems[0][0], 6)
-        self.assertEqual(c.elems[0][1], 'Six')
-        self.assertIsNone(c.elems[1][1])
-        self.assertEqual(c.count, 1)
-        self.assertEqual(b, (5, 'Five'))
-
-
 class TestInitTree(unittest.TestCase):
     def test_degree_two(self):
         b = BTree()
@@ -166,32 +146,32 @@ class TestSearchTree(unittest.TestCase):
     def test_at_root_recurs(self):
         self.assertEqual(self.b._recursive_search(self.b.root, 4), (self.b.root, 0))
 
-    def test_at_root(self):
-        self.assertEqual(self.b.search(4), 'Four')
+#     def test_at_root(self):
+#         self.assertEqual(self.b.search(4), 'Four')
 
-    def test_in_middle_recurs(self):
-        self.assertEqual(self.b._recursive_search(self.b.root, 2), (self.b.root.children[0], 0))
-        self.assertEqual(self.b._recursive_search(self.b.root, 8), (self.b.root.children[1], 1))
+#     def test_in_middle_recurs(self):
+#         self.assertEqual(self.b._recursive_search(self.b.root, 2), (self.b.root.children[0], 0))
+#         self.assertEqual(self.b._recursive_search(self.b.root, 8), (self.b.root.children[1], 1))
 
-    def test_in_middle(self):
-        self.assertEqual(self.b.search(2), 'Two')
-        self.assertEqual(self.b.search(8), 'Eight')
+#     def test_in_middle(self):
+#         self.assertEqual(self.b.search(2), 'Two')
+#         self.assertEqual(self.b.search(8), 'Eight')
 
-    def test_at_leaf_recurs(self):
-        self.assertEqual(self.b._recursive_search(self.b.root, 1), (self.b.root.children[0].children[0], 0))
-        self.assertEqual(self.b._recursive_search(self.b.root, 9), (self.b.root.children[1].children[2], 0))
+#     def test_at_leaf_recurs(self):
+#         self.assertEqual(self.b._recursive_search(self.b.root, 1), (self.b.root.children[0].children[0], 0))
+#         self.assertEqual(self.b._recursive_search(self.b.root, 9), (self.b.root.children[1].children[2], 0))
 
-    def test_at_leaf(self):
-        self.assertEqual(self.b.search(1), 'One')
-        self.assertEqual(self.b.search(9), 'Nine')
+#     def test_at_leaf(self):
+#         self.assertEqual(self.b.search(1), 'One')
+#         self.assertEqual(self.b.search(9), 'Nine')
 
-    def test_not_in_tree_recurs(self):
-        with self.assertRaises(MissingError):
-            self.b._recursive_search(self.b.root, 10)
+#     def test_not_in_tree_recurs(self):
+#         with self.assertRaises(MissingError):
+#             self.b._recursive_search(self.b.root, 10)
 
-    def test_not_in_tree(self):
-        with self.assertRaises(MissingError):
-            self.b.search(10)
+#     def test_not_in_tree(self):
+#         with self.assertRaises(MissingError):
+#             self.b.search(10)
 
 
 class TestSplitChild(unittest.TestCase):
@@ -369,29 +349,29 @@ class TestInsertTree(unittest.TestCase):
 #         self.assertIsNone(self.root.right)
 
 
-class TestMoveKey(unittest.TestCase):
-    def setUp(self):
-        self.b = BTree()
-        m, n, o = Node(), Node(), Node()
-        m.add_to_node(4, 'Four')
-        m.add_to_node(5, 'Five')
-        n.add_to_node(6, 'Six')
-        self.b.root, self.b.root.children = m, [o, n, None, None]
+# class TestMoveKey(unittest.TestCase):
+#     def setUp(self):
+#         self.b = BTree()
+#         m, n, o = Node(), Node(), Node()
+#         m.add_to_node(4, 'Four')
+#         m.add_to_node(5, 'Five')
+#         n.add_to_node(6, 'Six')
+#         self.b.root, self.b.root.children = m, [o, n, None, None]
 
-    def test_move_key(self):
-        self._move_key(5, m, n)
-        self.assertEqual(self.b.root.elems[0][1], 'Four')
-        self.assertIsNone(self.b.root.elems[1][1])
-        self.assertEqual(self.b.root.children[1].elems[0][1], 'Five')
-        self.assertEqual(self.b.root.children[1].elems[1][1], 'Six')
-
-
-class TestMergeNode(unittest.TestCase):
-    pass
+#     def test_move_key(self):
+#         self._move_key(5, m, n)
+#         self.assertEqual(self.b.root.elems[0][1], 'Four')
+#         self.assertIsNone(self.b.root.elems[1][1])
+#         self.assertEqual(self.b.root.children[1].elems[0][1], 'Five')
+#         self.assertEqual(self.b.root.children[1].elems[1][1], 'Six')
 
 
-class TestGetPred(unittest.TestCase):
-    pass
+# class TestMergeNode(unittest.TestCase):
+#     pass
+
+
+# class TestGetPred(unittest.TestCase):
+#     pass
 
 
 if __name__ == '__main__':
