@@ -2,7 +2,7 @@ from data_structures.stack import Stack
 
 
 class Node(object):
-    def __init__(self, capacity=3, key=None, val=None):
+    def __init__(self, key=None, val=None, capacity=3):
         self.count = 0
         if key is not None:
             self.count = 1
@@ -38,7 +38,6 @@ class Node(object):
                 return True
         return False
 
-    def sort_children(self):
         self.children.sort(key=lambda nod: nod.elems[0][0] if nod else None)
         while self.children[0] is None:
             self.children.pop(0)
