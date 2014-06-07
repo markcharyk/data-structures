@@ -38,22 +38,6 @@ class Node(object):
                 return True
         return False
 
-    # def split_node(self):
-    #     return (
-    #         Node(self.elems[0][0], self.elems[0][1]),
-    #         self.elems[1],
-    #         Node(self.elems[2][0], self.elems[2][1])
-    #         )
-
-    # def is_legal(self):
-    #     """Determines if an internal node is legal"""
-    #     if self.children[0] is not None and self.children[1] is not None:
-    #         if self.count == 1 and self.children[2] is None:
-    #             return True
-    #         elif self.count == 2 and self.children[2] is not None:
-    #             return True
-    #     return False
-
     def sort_children(self):
         self.children.sort(key=lambda nod: nod.elems[0][0] if nod else None)
         while self.children[0] is None:
