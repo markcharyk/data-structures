@@ -147,18 +147,6 @@ class BTree(object):
     def _merge_nodes(self, node1, node2):
         pass
 
-    # def _get_pred(self, node, key):
-    #     if node.elems[0][0] == key:
-    #         next_node = node.children[0]
-    #     else:
-    #         next_node = node.children[1]
-    #     while next_node.children:
-    #         self.stack.push(next_node)
-    #         next_node = next_node.children[-1]
-    #     result = next_node.elems[next_node.count - 1]
-    #     self.delete(next_node, next_node.elems[next_node.count - 1][0])
-    #     return result
-
 
 class InvalidDegreeError(BaseException):
     pass
