@@ -38,6 +38,7 @@ class Node(object):
                 return True
         return False
 
+    def sort_children(self):
         self.children.sort(key=lambda nod: nod.elems[0][0] if nod else None)
         while self.children[0] is None:
             self.children.pop(0)
